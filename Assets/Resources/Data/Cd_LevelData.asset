@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce9290fd5e7741438a649c6b9b5dd30, type: 3}
+  m_Name: Cd_LevelData
+  m_EditorClassIdentifier: 
+  LevelData:
+  - spawnData:
+      enemySpawnData:
+        spawnCount: 0
+        spawnLimit: 100
+        spawnRange: 10
+        enemySpawnZone: {fileID: 2826552541090876814, guid: a2c50be0cda788941bbedb51758cd12e,
+          type: 3}
+      collectableSpawnData:
+        spawnCount: 0
+        spawnLimit: 20
+        spawnRange: 0
+        collectableSpawnZone: {fileID: 2826552541090876814, guid: a2c50be0cda788941bbedb51758cd12e,
+          type: 3}
+    playerData:
+      PlayerMovementData:
+        Speed: 6
