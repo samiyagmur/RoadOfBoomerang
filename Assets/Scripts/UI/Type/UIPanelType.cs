@@ -4,9 +4,6 @@
     {
         StartPanel,
         LevelPanel,
-        LevelSuccesful,
         FailPanel,
-        Setting,
-        TopScore
     }
 }

@@ -8,25 +8,6 @@ using UnityEngine.UI;
 
 namespace Controller
 {
-    [Serializable]
-    internal struct StartPanelassignments
-    {
-        [SerializeField]
-        private TextMeshProUGUI gameName;
-        [SerializeField]
-        private Button startButton;
-        [SerializeField]
-        private Button scorePanelButton;
-        [SerializeField]
-        private Button settingPanelButton;
-
-        public TextMeshProUGUI GameName { get => gameName;}
-        public Button StartButton { get => startButton; }
-        public Button ScorePanelButton { get => scorePanelButton; }
-        public Button SettingPanelButton { get => settingPanelButton; }
-    }
-
-
 
     public class StartPanelController : MonoBehaviour
     {
@@ -34,7 +15,8 @@ namespace Controller
         private UIManager manager;
 
         [SerializeField]
-        private StartPanelassignments startPanelassignments;
+        private Button startButton;
+
 
         private void Start()
         {
@@ -43,23 +25,14 @@ namespace Controller
 
         private void Init()
         {
-            InitText();
             InitButton();
         }
 
-        private void InitText()
-        {
-            startPanelassignments.GameName.text = "Name Of Game";
-        }
 
         private void InitButton()
         {
-            startPanelassignments.StartButton.onClick.
-                AddListener(delegate { ArangeStartPanelStatus(); });
-            startPanelassignments.ScorePanelButton.onClick.
-                AddListener(delegate { ArangePanelStatus(UIPanelType.TopScore); });
-            startPanelassignments.SettingPanelButton.onClick.
-                AddListener(delegate { ArangePanelStatus(UIPanelType.Setting); });
+            startButton.onClick.AddListener(delegate { ArangeStartPanelStatus(); });
+
         }
 
         private void ArangeStartPanelStatus()

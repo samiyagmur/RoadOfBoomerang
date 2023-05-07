@@ -16,3 +16,5 @@ MonoBehaviour:
     PlayerMovementData:
       Speed: 6
       TurnSpeed: 6
+    PlayerHealtData:
+      MaxHealth: 100

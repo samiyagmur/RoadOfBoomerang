@@ -13,7 +13,5 @@ MonoBehaviour:
   m_Name: Cd_BulletData
   m_EditorClassIdentifier: 
   BulletData:
-  - damage: 20
-    Speed: 10
-  - damage: 100
-    Speed: 5
+    damage: 20
+    Speed: 15

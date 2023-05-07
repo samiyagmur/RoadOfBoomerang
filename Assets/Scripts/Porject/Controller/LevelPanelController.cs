@@ -1,8 +1,6 @@
 ﻿using Managers;
-using System;
-using System.Collections;
+using Scripts.Extetions;
 using TMPro;
-using Type;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,7 +32,7 @@ namespace Controller
 
         internal void PrintHealth(float health)
         {
-            image.fillAmount = health;
+            image.fillAmount = SelfExtetions.Map(health,0,100,0,1);
         }
 
         internal void InitDeathScore(int value)

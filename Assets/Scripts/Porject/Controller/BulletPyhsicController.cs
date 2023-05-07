@@ -15,8 +15,6 @@ namespace Scripts.Level.Controller
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log(other.transform.parent.gameObject.name);
-
             PushToPool(PoolObjectType.Bullet, transform.parent.gameObject);
         }
 
@@ -30,7 +28,5 @@ namespace Scripts.Level.Controller
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
         }
-
-
     }
 }

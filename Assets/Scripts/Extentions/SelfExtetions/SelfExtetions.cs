@@ -32,6 +32,11 @@ namespace Scripts.Extetions
             return randomTopPosition;
         }
 
+        /// <summary>
+        /// Ratios one number between two numbers between two other numbers.This extetion made by sami yagmur.
+        /// </summary>
+        /// <param name="cubeObject"></param>
+        /// <returns></returns>
         public static float Map(float value, float inMin, float inMax, float outMin, float outMax)
         {
 

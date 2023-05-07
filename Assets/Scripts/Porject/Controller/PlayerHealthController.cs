@@ -25,18 +25,25 @@ namespace Scripts.Level.Controller
 
         public void OnTakeDamage(int damage)
         {
-            if (_health >= 0)
+            if (_health > 0)
+            {
+
                 _health -= damage;
+
+                OnHealthUpdate(_health);
+
+
+            }
             else
             {
                 playerManager.PlayerDead();
             }
-
-            OnHealthUpdate(_health);
         }
 
         private void OnHealthUpdate(float healthValue)
         {
+            Debug.Log(healthValue);
+
             playerManager.OnHealtDecrase(healthValue);
         }
     }

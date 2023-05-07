@@ -22,7 +22,6 @@ namespace Scripts.Level.Controller
 
             if (other.CompareTag("Coin"))
             {
-
                 playerManager.HitCoin();
 
                 PushToPool(PoolObjectType.SmallGold, other.transform.parent.gameObject);

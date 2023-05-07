@@ -43,11 +43,6 @@ namespace Scripts.Level.Manager
             UISignals.Instance.onHealthDecrase?.Invoke(healthValue);
         }
 
-        internal void PlayerDead()
-        {
-            
-        }
-
         private void GetData() => _playerData = Resources.Load<Cd_PlayerData>(DataPath).PlayerData;
 
         private void SetDataToController()
@@ -120,12 +115,14 @@ namespace Scripts.Level.Manager
         public void ActiveteController()
         {
             playerMovementController.IsActivating = true;
+
             playerAnimationController.IsActivating = true;
         }
 
         public void DeactiveController()
         {
             playerMovementController.IsActivating = false;
+
             playerAnimationController.IsActivating = false;
         }
 
@@ -148,15 +145,19 @@ namespace Scripts.Level.Manager
             playerHealthController.OnTakeDamage((int)damage);
         }
 
-        public void Death()
-        {
-            playerAnimationController.PlayDadAnimation();
-
-            playerAnimationController.IsActivating = false;
-        }
         internal void HitCoin()
         {
             ScoreSignals.Instance.onScoreTaken?.Invoke();
         }
+        internal void PlayerDead()
+        {
+            CoreGameSignals.Instance.onFail?.Invoke();
+
+            playerAnimationController.PlayDadAnimation();
+
+            playerAnimationController.IsActivating = false;
+        }
+
+      
     }
 }
