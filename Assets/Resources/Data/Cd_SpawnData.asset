@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnData:
     enemySpawnData:
-      spawnLimit: 10
+      spawnLimit: 50
       spawnRange: 2
       enemySpawnZone: {fileID: 381838514777014987, guid: a2c50be0cda788941bbedb51758cd12e,
         type: 3}
     collectableSpawnData:
-      spawnLimit: 50
+      spawnLimit: 100
       collectableSpawnZone: {fileID: 381838514777014987, guid: a2c50be0cda788941bbedb51758cd12e,
         type: 3}

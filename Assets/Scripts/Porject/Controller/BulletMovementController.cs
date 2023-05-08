@@ -8,7 +8,7 @@ namespace Scripts.Level.Controller
 {
     public class BulletMovementController : MonoBehaviour
     {
-        public bool isActivate { get; set; }
+        public bool IsActive { get; set; }
 
         public BulletData BulletData { get ; set ; }
 
@@ -19,7 +19,7 @@ namespace Scripts.Level.Controller
 
         public void TriggerAction()
         {
-            if (!isActivate) return;
+            if (!IsActive) return;
 
             MoveAsFireBal();
         }

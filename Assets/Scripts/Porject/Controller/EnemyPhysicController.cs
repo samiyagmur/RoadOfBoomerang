@@ -13,13 +13,14 @@ namespace Scripts.Level.Controller
         [SerializeField]
         private EnemyManager enemyManager;
 
+        [SerializeField]
+        private new Collider collider;
+
         private void OnTriggerEnter(Collider other)
         {
 
             if (other.TryGetComponent(out PlayerDetectController playerDetectController))
             {
-                Debug.Log("sssss");
-
                 enemyManager.EnterDetectArea();
             }
 
@@ -34,5 +35,13 @@ namespace Scripts.Level.Controller
             return transform.parent.gameObject;
         }
 
+        public void CloseCollider()
+        {
+            collider.enabled = false;
+        }
+        public void OpenCollider()
+        {
+            collider.enabled = true;
+        }
     }
 }

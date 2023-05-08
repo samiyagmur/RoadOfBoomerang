@@ -7,6 +7,7 @@ using Scripts.Level.Manager;
 using Signals;
 using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Type;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Scripts.Level.Controller
     {
         [SerializeField]
         private GameObject spawnPointForBoomerang;
+
+        private float _timer;
 
         public bool IsActive { get; set; }
 
@@ -41,7 +44,6 @@ namespace Scripts.Level.Controller
                 boomerangManager.SetData(TargetObject.transform);
             }
         }
-
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {
             return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);

@@ -1,11 +1,8 @@
-﻿using Interfaces;
-using Script.Signals;
+﻿using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
 using Signals;
-using System;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -29,6 +26,7 @@ namespace Scripts.Level.Manager
 
         }
 
+
         private void GetData() => _boomerangData = Resources.Load<Cd_BoomerangData>(DataPath).BoomerangData;
 
         public void SetData(Transform target)
@@ -41,7 +39,9 @@ namespace Scripts.Level.Manager
         public void OnEnable()
         {
             ActiveteController();
+
             SubscribeEvents();
+
         }
 
 
@@ -50,7 +50,6 @@ namespace Scripts.Level.Manager
 
             CoreGameSignals.Instance.onReset += OnReset;
         }
-
 
         private void UnsubscribeEvents()
         {
@@ -63,9 +62,21 @@ namespace Scripts.Level.Manager
             UnsubscribeEvents();
             DeactiveController();
         }
+
+
         private void Start()
         {
             TriggerController();
+
+            SetSelfData();
+        }
+        private void SetSelfData()
+        {
+            Damage = _boomerangData.damage;
+
+            Vector3 startPos = transform.position;
+
+            boomerangMovementController.SetDataToStart(startPos);
         }
         public void TriggerController()
         {

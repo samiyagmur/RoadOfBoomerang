@@ -37,11 +37,13 @@ namespace Scripts.Level.Controller
 
         private async void SpawnFactory()
         {
-            for (int i = 0; i < 1; i++)
+            int millisecond = _enemySpawnData.spawnRange * 1000;
+
+            for (int i = 0; i < _enemySpawnData.spawnRange; i++)
             {
                 if (!IsActivating) break;
 
-                await Task.Delay((int)_enemySpawnData.spawnRange);
+                await Task.Delay(millisecond);
 
                 Spawn();
             }

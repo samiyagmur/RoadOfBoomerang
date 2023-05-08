@@ -34,7 +34,7 @@ namespace Scripts.Level.Controller
             if (!IsActive) return;
 
             Attack();
-
+            
         }
 
         private void Attack()

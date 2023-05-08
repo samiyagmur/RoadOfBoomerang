@@ -29,7 +29,12 @@ namespace Scripts.Level.Controller
 
         private void Update()
         {
-            if (!IsActive) return;
+            if (!IsActive)
+            {
+                agent.ResetPath();
+
+                return;
+            }
 
             _playerTransform = enemyManager.GetPlayerTransform();
 
@@ -39,6 +44,8 @@ namespace Scripts.Level.Controller
 
         public void StartMovement()
         {
+            Debug.Log("dd");
+
             agent.speed =_enemyMovementData.speed;
 
             agent.SetDestination(_playerTransform.position);

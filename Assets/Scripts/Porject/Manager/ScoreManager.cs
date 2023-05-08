@@ -18,13 +18,7 @@ namespace Managers
         private void Awake()
         {
             GetData();
-            InitData(); 
-        }
-
-        private void InitData()
-        {   
-            UISignals.Instance.onPrintLastGoldScore?.Invoke(_scoreData.LastGoldScore);
-            UISignals.Instance.onPrintLastDeathScore?.Invoke(_scoreData.LastDeathScore);
+       
         }
 
         public void GetData()
@@ -47,6 +41,16 @@ namespace Managers
         }
 
         private void OnDisable() => UnsubscribeEvents();
+        private void Start()
+        {
+            InitData();
+        }
+
+        private void InitData()
+        {
+            UISignals.Instance.onPrintLastGoldScore?.Invoke(_scoreData.LastGoldScore);
+            UISignals.Instance.onPrintLastDeathScore?.Invoke(_scoreData.LastDeathScore);
+        }
 
         private void OnScoreTaken()
         {

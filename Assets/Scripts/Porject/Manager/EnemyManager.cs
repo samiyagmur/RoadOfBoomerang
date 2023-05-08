@@ -67,7 +67,7 @@ namespace Assets.Scripts.Level.Manager
         }
         public void TriggerController()
         {
-            enemyPhysicController.enabled = false;
+            enemyPhysicController.OpenCollider();
 
             enemyAnimationController.TriggerAction();
         }
@@ -88,21 +88,21 @@ namespace Assets.Scripts.Level.Manager
 
         internal void EnterDetectArea()
         {
-            DeactiveController();
-
             enemyAnimationController.PlayAttackAnimation();
         }
 
         internal void OnReadyToAttack()
         {
             enemyAttackController.TriggerToAction();
-
+            
             ActiveteController();
         }
 
         internal void OnHitBoomerang()
         {
-            enemyPhysicController.enabled = false;
+            enemyPhysicController.CloseCollider();
+
+            enemyMovementController.IsActive = false;
 
             enemyAnimationController.PlayDyingAnimation();
         }

@@ -32,12 +32,12 @@ namespace Scripts.Level.Controller
 
         public void OnEnemyDying()
         {
-            Debug.Log("ss");
             enemyManager.OnEnemyDying();
         }
 
         public void OnReadyToAttack()
         {
+            TriggerAction();
             enemyManager.OnReadyToAttack();
         }
 
@@ -68,8 +68,6 @@ namespace Scripts.Level.Controller
 
         private void ChangeAnimation(EnemyAnimationType enemyAnimationType)
         {
-           // if (!IsActive) return;
-
             animator.Play(enemyAnimationType.ToString());
         }
 

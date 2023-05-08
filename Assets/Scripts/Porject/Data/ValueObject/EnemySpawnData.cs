@@ -9,7 +9,7 @@ namespace Scripts.Level.Data.ValueObject
     {
         public int spawnLimit;
 
-        public float spawnRange;
+        public int spawnRange;
 
         public GameObject enemySpawnZone;
     }

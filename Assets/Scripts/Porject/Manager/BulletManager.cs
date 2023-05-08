@@ -85,12 +85,12 @@ namespace Scripts.Level.Manager
 
         public void ActiveteController()
         {
-            bulletMovementController.isActivate = true;
+            bulletMovementController.IsActive = true;
         }
 
         public void DeactiveController()
         {
-            bulletMovementController.isActivate = false;
+            bulletMovementController.IsActive = false;
 
         }
         private void OnReset()

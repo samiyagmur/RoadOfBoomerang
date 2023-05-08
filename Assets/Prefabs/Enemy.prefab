@@ -747,6 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 846254205252969217}
+  collider: {fileID: 6443676023792299661}
 --- !u!136 &6443676023792299661
 CapsuleCollider:
   m_ObjectHideFlags: 0
