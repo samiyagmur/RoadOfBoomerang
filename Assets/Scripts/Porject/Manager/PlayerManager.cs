@@ -54,6 +54,8 @@ namespace Scripts.Level.Manager
         {
             SubscribeEvents();
 
+            SetData();
+
             ActiveteController();
         }
 
@@ -87,6 +89,8 @@ namespace Scripts.Level.Manager
         private void Start()
         {
             TriggerController();
+
+
 
            _camDiraction = CameraSignals.Instance.onSpawnPlayer.Invoke(gameObject);
         }

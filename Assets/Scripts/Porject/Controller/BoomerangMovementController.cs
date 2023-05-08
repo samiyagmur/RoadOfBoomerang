@@ -7,17 +7,18 @@ using System.Collections.Generic;
 using Random = UnityEngine.Random;
 using Type;
 using Signals;
+using Interfaces;
 
 namespace Scripts.Level.Controller
 {
-    public class BoomerangMovementController : MonoBehaviour
+    public class BoomerangMovementController : MonoBehaviour, IPushObject
     {
         public bool IsActive { get; set; }
 
         private BoomerangData _boomerangData;
 
         private Transform _target;
-        private Vector3 _spawnPos;
+
         List<Vector3[]> waypoints;
 
         Vector3[] waypoints1 = new[]
@@ -100,19 +101,28 @@ namespace Scripts.Level.Controller
             transform.DOLocalPath(waypoints,(_boomerangData.arrivalTime)).SetEase(Ease.InOutSine).OnComplete(() => isFinishMovement=true);
         }
 
-
-        private void Update()
-        {
-            if (isFinishMovement)
-            {
-                transform.DOMove(_target.position, 0.5f);
-            }
-        }
-
         private int SelectWaypoint()
         {
             return Random.Range(0, 3);
         }
 
+        private void Update()
+        {
+            if (isFinishMovement)
+            {
+                transform.DOMove(_target.position, 0.5f).OnComplete(()=>DisableObject());
+            }
+        }
+
+        private void DisableObject()
+        {
+            PushToPool(PoolObjectType.Boomerang, gameObject);
+        }
+
+ 
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
+        }
     }
 }

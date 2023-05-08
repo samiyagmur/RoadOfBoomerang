@@ -1,4 +1,5 @@
-﻿using Script.Signals;
+﻿using Interfaces;
+using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
@@ -8,7 +9,7 @@ using UnityEngine;
 
 namespace Scripts.Level.Manager
 {
-    public class BoomerangManager : MonoBehaviour
+    public class BoomerangManager : MonoBehaviour,IPushObject
     {
         public float Damage { get; set; }
 
@@ -94,18 +95,6 @@ namespace Scripts.Level.Manager
         private void OnReset()
         {
             PushToPool(PoolObjectType.Boomerang, gameObject);
-        }
-
-        private void Update()
-        {
-            if (!gameObject.activeInHierarchy) return;
-
-            _timer += Time.deltaTime;
-
-            if (_timer > 15)
-            {
-                PushToPool(PoolObjectType.Boomerang, gameObject);
-            }
         }
 
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)

@@ -98,17 +98,17 @@ namespace Scripts.Level.Manager
             PushToPool(PoolObjectType.Bullet, gameObject); 
         }
 
-        //private void Update()
-        //{
-        //    if (!gameObject.activeInHierarchy) return;
+        private void Update()
+        {
+            if (!gameObject.activeInHierarchy) return;
 
-        //    _timer += Time.deltaTime;
+            _timer += Time.deltaTime;
 
-        //    if (_timer>15)
-        //    {
-        //        PushToPool(PoolObjectType.Bullet, gameObject);
-        //    }
-        //}
+            if (_timer > 10)
+            {
+                PushToPool(PoolObjectType.Bullet, gameObject);
+            }
+        }
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);

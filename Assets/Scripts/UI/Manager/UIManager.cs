@@ -38,9 +38,6 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onFail += OnFail;
-
-           
-
         }
 
         private void UnsubscribeEvents()
@@ -55,7 +52,6 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
             CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onPlay -= OnPlay;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();

@@ -39,7 +39,7 @@ namespace Scripts.Level.Controller
         {
             int millisecond = _enemySpawnData.spawnRange * 1000;
 
-            for (int i = 0; i < _enemySpawnData.spawnRange; i++)
+            for (int i = 0; i < _enemySpawnData.spawnLimit; i++)
             {
                 if (!IsActivating) break;
 

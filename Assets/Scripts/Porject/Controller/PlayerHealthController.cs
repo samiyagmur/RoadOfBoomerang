@@ -23,29 +23,29 @@ namespace Scripts.Level.Controller
         {
             _maxHealt = playerHealtData.MaxHealth;
             _health = _maxHealt;
-      
+            OnHealthUpdate(_health);
         }
 
         internal void SetDamage(int damage)
         {
             _damage = damage;
-            _deadHealt = _maxHealt / damage;
 
+            _deadHealt = _maxHealt / damage;
         }
         public void OnTakeDamage()
         {
-            if (_health < _deadHealt)
+            _health -= _damage;
+
+            if (_health <= 0)
             {
-
-                _health -= _damage;
-
                 OnHealthUpdate(_health);
-            }
-            else
-            {
-                Debug.Log(playerManager);
+
                 playerManager.PlayerDead();
+
+                return;
             }
+
+            OnHealthUpdate(_health);
         }
 
         private void OnHealthUpdate(float healthValue)

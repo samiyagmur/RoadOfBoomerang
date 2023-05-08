@@ -39,8 +39,6 @@ namespace Scripts.Level.Controller
 
         private void Attack()
         {
-            Debug.Log("attack");
-
             GameObject bullet = PullFromPool(PoolObjectType.Bullet);
 
             bullet.transform.position = spawnPosition.transform.position;
