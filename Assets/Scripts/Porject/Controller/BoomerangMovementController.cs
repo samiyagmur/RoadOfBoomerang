@@ -50,6 +50,7 @@ namespace Scripts.Level.Controller
             new Vector3(-2.55974f, 2.480469f, -6.649756f),
             Vector3.zero
         };
+        private bool isFinishMovement;
 
         internal void SetData(BoomerangData boomerangData, Transform target)
         {
@@ -71,6 +72,8 @@ namespace Scripts.Level.Controller
 
         public void TriggerAction()
         {
+            isFinishMovement = false;
+
             if (!IsActive) return;
 
             waypoints = new List<Vector3[]> { waypoints1, waypoints2, waypoints3 };
@@ -82,14 +85,9 @@ namespace Scripts.Level.Controller
             Rotate();
 
             Move(waypoints[selectedWayPoint]);
-
         }
 
 
-        private int SelectWaypoint()
-        {
-            return Random.Range(0, 3);
-        }
 
         private void Rotate()
         {
@@ -99,34 +97,22 @@ namespace Scripts.Level.Controller
 
         private void Move(Vector3[] waypoints)
         {
-            transform.DOLocalPath(waypoints,(_boomerangData.arrivalTime)).SetEase(Ease.InOutSine).OnComplete(() => MoveNewPos());
+            transform.DOLocalPath(waypoints,(_boomerangData.arrivalTime)).SetEase(Ease.InOutSine).OnComplete(() => isFinishMovement=true);
         }
 
-        private void MoveNewPos()
+
+        private void Update()
         {
-            transform.DOMove(_target.position, 0.5f).OnComplete(() => MoveNewNewPos());
+            if (isFinishMovement)
+            {
+                transform.DOMove(_target.position, 0.5f);
+            }
         }
 
-        private void MoveNewNewPos()
+        private int SelectWaypoint()
         {
-            transform.DOMove(_target.position, 0.5f).OnComplete(() => MoveNewNewNewPos());
+            return Random.Range(0, 3);
         }
 
-        private void MoveNewNewNewPos()
-        {
-            transform.DOMove(_target.position, 0.5f).OnComplete(() =>DisableBoomerang());
-        }
-
-        private void DisableBoomerang()
-        {
-            if (!gameObject.activeInHierarchy) return;
-
-            PushToPool(PoolObjectType.Boomerang, gameObject);
-        }
-
-        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
-        {
-            PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
-        }
     }
 }
