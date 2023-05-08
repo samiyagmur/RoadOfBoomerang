@@ -1,12 +1,8 @@
-﻿using Interfaces;
-using Script.Signals;
+﻿using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
-using Scripts.Level.Type;
 using Signals;
-using System;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -14,7 +10,7 @@ namespace Scripts.Level.Manager
 {
     public class BulletManager : MonoBehaviour
     {
-        public Transform Target { get ; set ; }
+        public Transform Target { get; set; }
 
         public float Damage { get; set; }
 
@@ -27,7 +23,6 @@ namespace Scripts.Level.Manager
 
         private BulletData _bulletData;
 
-
         private void Awake()
         {
             GetData();
@@ -36,7 +31,6 @@ namespace Scripts.Level.Manager
         }
 
         private void GetData() => _bulletData = Resources.Load<Cd_BulletData>(_dataPath).BulletData;
-
 
         private void SetData()
         {
@@ -49,13 +43,12 @@ namespace Scripts.Level.Manager
 
         public void OnEnable()
         {
-            SubscribeEvents(); 
+            SubscribeEvents();
             ActiveteController();
         }
 
         private void SubscribeEvents()
         {
-
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
@@ -63,7 +56,6 @@ namespace Scripts.Level.Manager
         {
             CoreGameSignals.Instance.onReset -= OnReset;
         }
-
 
         public void OnDisable()
         {
@@ -91,11 +83,11 @@ namespace Scripts.Level.Manager
         public void DeactiveController()
         {
             bulletMovementController.IsActive = false;
-
         }
+
         private void OnReset()
         {
-            PushToPool(PoolObjectType.Bullet, gameObject); 
+            PushToPool(PoolObjectType.Bullet, gameObject);
         }
 
         private void Update()
@@ -109,10 +101,10 @@ namespace Scripts.Level.Manager
                 PushToPool(PoolObjectType.Bullet, gameObject);
             }
         }
+
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
         }
-
     }
 }

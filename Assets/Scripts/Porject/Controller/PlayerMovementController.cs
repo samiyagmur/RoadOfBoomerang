@@ -1,23 +1,17 @@
-﻿using Data.ValueObject;
-using Scripts.Helper.Interfaces;
-using Scripts.Level.Data.ValueObject;
-using System;
-using System.Collections;
+﻿using Scripts.Level.Data.ValueObject;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class PlayerMovementController :MonoBehaviour
+    public class PlayerMovementController : MonoBehaviour
     {
         public bool IsActive { get; set; }
+        public float Diraction { get => _diraction; set => _diraction = value; }
+        public Vector3 JoystickDirection { get => _joystickDirection; set => _joystickDirection = value; }
 
         private float _diraction;
 
         private Vector3 _joystickDirection;
-        public float Diraction { get => _diraction; set => _diraction = value; }
-        public Vector3 JoystickDirection { get => _joystickDirection; set => _joystickDirection = value; }
-
-
 
         private PlayerMovementData _playerMovementData;
 
@@ -28,6 +22,7 @@ namespace Scripts.Level.Controller
         {
             _playerMovementData = playerMovementData;
         }
+
         internal void Move()
         {
             if (!IsActive) return;
@@ -36,8 +31,7 @@ namespace Scripts.Level.Controller
 
             rigidbody.MoveRotation(Quaternion.Slerp(rigidbody.rotation, targetRotation, _playerMovementData.TurnSpeed * Time.fixedDeltaTime));
 
-            rigidbody.velocity = JoystickDirection.normalized * _playerMovementData.Speed ;
+            rigidbody.velocity = JoystickDirection.normalized * _playerMovementData.Speed;
         }
-
     }
 }

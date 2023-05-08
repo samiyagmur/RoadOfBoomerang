@@ -1,18 +1,15 @@
-﻿using Data.ValueObject;
-using Interfaces;
-using Managers;
+﻿using Interfaces;
 using Scripts.Helper.Interfaces;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
 using Signals;
-using System.Collections;
 using System.Collections.Generic;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class PlayerSpawnController :ISpawner, IPullObject, IPushObject
+    public class PlayerSpawnController : ISpawner, IPullObject, IPushObject
     {
         public bool IsActivating { get; set; }
 
@@ -43,7 +40,6 @@ namespace Scripts.Level.Controller
             player.transform.position = Vector3.zero;
 
             _spawnedObject.Add(player);
-
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)

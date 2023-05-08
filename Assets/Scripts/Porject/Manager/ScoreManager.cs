@@ -1,16 +1,12 @@
 ﻿using Data.UnityObject;
 using Data.ValueObject;
-using Interfaces;
-using Manager;
 using Script.Signals;
-using System;
 using UnityEngine;
 
 namespace Managers
 {
     public class ScoreManager : MonoBehaviour
     {
-
         private string _dataPath = "Data/Cd_ScoreData";
 
         private ScoreData _scoreData;
@@ -18,7 +14,6 @@ namespace Managers
         private void Awake()
         {
             GetData();
-       
         }
 
         public void GetData()
@@ -41,6 +36,7 @@ namespace Managers
         }
 
         private void OnDisable() => UnsubscribeEvents();
+
         private void Start()
         {
             InitData();

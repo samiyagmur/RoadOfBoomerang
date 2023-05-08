@@ -1,15 +1,12 @@
 ﻿using Assets.Scripts.Level.Manager;
-using Scripts.Helper.Interfaces;
 using Scripts.Level.Data.ValueObject;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Scripts.Level.Controller
 {
-    public class EnemyMovementController :MonoBehaviour
-    { 
+    public class EnemyMovementController : MonoBehaviour
+    {
         public bool IsActive { get; set; }
 
         [SerializeField]
@@ -38,15 +35,14 @@ namespace Scripts.Level.Controller
 
             _playerTransform = enemyManager.GetPlayerTransform();
 
-             StartMovement();
+            StartMovement();
         }
-
 
         public void StartMovement()
         {
             Debug.Log("dd");
 
-            agent.speed =_enemyMovementData.speed;
+            agent.speed = _enemyMovementData.speed;
 
             agent.SetDestination(_playerTransform.position);
         }

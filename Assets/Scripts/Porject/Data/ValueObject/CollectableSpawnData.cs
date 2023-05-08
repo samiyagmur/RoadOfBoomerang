@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Level.Data.ValueObject
@@ -10,6 +9,5 @@ namespace Scripts.Level.Data.ValueObject
         public int spawnLimit;
 
         public GameObject collectableSpawnZone;
-
     }
 }

@@ -1,7 +1,4 @@
 ﻿using Scripts.Level.Data.ValueObject;
-using Scripts.Level.Type;
-using System;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
@@ -10,9 +7,9 @@ namespace Scripts.Level.Controller
     {
         public bool IsActive { get; set; }
 
-        public BulletData BulletData { get ; set ; }
+        public BulletData BulletData { get; set; }
 
-        public Transform Target { get; set ; }
+        public Transform Target { get; set; }
 
         [SerializeField]
         private Rigidbody bulletRigdbody;
@@ -26,9 +23,7 @@ namespace Scripts.Level.Controller
 
         private void MoveAsFireBal()
         {
-
-            bulletRigdbody.AddForce(Target.forward * BulletData.Speed,ForceMode.Impulse);
+            bulletRigdbody.AddForce(Target.forward * BulletData.Speed, ForceMode.Impulse);
         }
-
     }
 }

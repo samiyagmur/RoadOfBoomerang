@@ -1,6 +1,4 @@
-﻿using Data.ValueObject;
-using Interfaces;
-using Scripts.Level.Data.ValueObject;
+﻿using Scripts.Level.Data.ValueObject;
 using UnityEngine;
 
 namespace Data.UnityObject

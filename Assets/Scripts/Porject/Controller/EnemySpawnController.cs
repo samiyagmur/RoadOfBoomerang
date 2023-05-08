@@ -1,17 +1,17 @@
 ﻿using Interfaces;
+using Scripts.Extetions;
 using Scripts.Helper.Interfaces;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
 using Signals;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Type;
 using UnityEngine;
-using Scripts.Extetions;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace Scripts.Level.Controller
 {
-    public class EnemySpawnController :ISpawner, IPullObject, IPushObject
+    public class EnemySpawnController : ISpawner, IPullObject, IPushObject
     {
         public bool IsActivating { get; set; }
 

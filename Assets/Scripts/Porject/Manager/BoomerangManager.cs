@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Scripts.Level.Manager
 {
-    public class BoomerangManager : MonoBehaviour,IPushObject
+    public class BoomerangManager : MonoBehaviour, IPushObject
     {
         public float Damage { get; set; }
 
@@ -19,14 +19,13 @@ namespace Scripts.Level.Manager
         private BoomerangMovementController boomerangMovementController;
 
         private BoomerangData _boomerangData;
+
         private float _timer;
 
         private void Awake()
         {
             GetData();
-
         }
-
 
         private void GetData() => _boomerangData = Resources.Load<Cd_BoomerangData>(DataPath).BoomerangData;
 
@@ -42,13 +41,10 @@ namespace Scripts.Level.Manager
             ActiveteController();
 
             SubscribeEvents();
-
         }
-
 
         private void SubscribeEvents()
         {
-
             CoreGameSignals.Instance.onReset += OnReset;
         }
 
@@ -57,13 +53,11 @@ namespace Scripts.Level.Manager
             CoreGameSignals.Instance.onReset -= OnReset;
         }
 
-
         public void OnDisable()
         {
             UnsubscribeEvents();
             DeactiveController();
         }
-
 
         private void Start()
         {
@@ -71,6 +65,7 @@ namespace Scripts.Level.Manager
 
             SetSelfData();
         }
+
         private void SetSelfData()
         {
             Damage = _boomerangData.damage;
@@ -79,19 +74,22 @@ namespace Scripts.Level.Manager
 
             boomerangMovementController.SetDataToStart(startPos);
         }
+
         public void TriggerController()
         {
             boomerangMovementController.TriggerAction();
         }
+
         public void ActiveteController()
         {
             boomerangMovementController.IsActive = true;
         }
+
         public void DeactiveController()
         {
-
             boomerangMovementController.IsActive = false;
         }
+
         private void OnReset()
         {
             PushToPool(PoolObjectType.Boomerang, gameObject);

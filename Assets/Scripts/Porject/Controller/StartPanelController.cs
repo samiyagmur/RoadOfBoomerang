@@ -1,14 +1,10 @@
 ﻿using Managers;
-using System;
-using System.Collections;
-using TMPro;
 using Type;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Controller
 {
-
     public class StartPanelController : MonoBehaviour
     {
         [SerializeField]
@@ -16,7 +12,6 @@ namespace Controller
 
         [SerializeField]
         private Button startButton;
-
 
         private void Start()
         {
@@ -28,11 +23,9 @@ namespace Controller
             InitButton();
         }
 
-
         private void InitButton()
         {
             startButton.onClick.AddListener(delegate { ArangeStartPanelStatus(); });
-
         }
 
         private void ArangeStartPanelStatus()

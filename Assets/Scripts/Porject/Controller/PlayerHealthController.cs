@@ -1,11 +1,6 @@
-﻿using Data.ValueObject;
-using Scripts.Helper.Interfaces;
-using Scripts.Level.Data.ValueObject;
+﻿using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Scripts.Level.Controller
 {
@@ -32,6 +27,7 @@ namespace Scripts.Level.Controller
 
             _deadHealt = _maxHealt / damage;
         }
+
         public void OnTakeDamage()
         {
             _health -= _damage;
@@ -52,6 +48,5 @@ namespace Scripts.Level.Controller
         {
             playerManager.OnHealtDecrase(healthValue);
         }
-
     }
 }

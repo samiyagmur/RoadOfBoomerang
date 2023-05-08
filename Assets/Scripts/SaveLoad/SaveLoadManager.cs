@@ -1,13 +1,7 @@
-using Interfaces;
-using Scripts.Helper.Interfaces;
-using Scripts.Level.Data.UnityObject;
-using Scripts.Level.Data.ValueObject;
 using Scripts.SaveLoad;
 using Signals;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Manager
 {
@@ -17,13 +11,13 @@ namespace Manager
         [SerializeField]
         private List<DataContainer> dataContainer;
 
-
         private const string defaultFile = "NewFile";
 
         private void Awake()
         {
             Load();
         }
+
         private void OnEnable() => SubscribeEvents();
 
         private void SubscribeEvents()
@@ -38,7 +32,6 @@ namespace Manager
 
         private void OnDisable() => UnsubscribeEvents();
 
-
         private void OnSave()
         {
             UpdateSave();
@@ -48,7 +41,6 @@ namespace Manager
         {
             UpdateLoad();
         }
-
 
         public void UpdateSave()
         {

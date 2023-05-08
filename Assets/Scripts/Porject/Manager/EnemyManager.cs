@@ -1,14 +1,12 @@
-﻿using Scripts.Signals;
-using Interfaces;
+﻿using Interfaces;
+using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
-using System;
-using System.Collections;
-using UnityEngine;
-using Script.Signals;
-using Type;
+using Scripts.Signals;
 using Signals;
+using Type;
+using UnityEngine;
 
 namespace Assets.Scripts.Level.Manager
 {
@@ -39,9 +37,7 @@ namespace Assets.Scripts.Level.Manager
             SetData();
         }
 
-
         public void GetData() => _enemyData = Resources.Load<Cd_EnemyData>(DataPath).EnemyData;
-
 
         public void SetData()
         {
@@ -61,10 +57,12 @@ namespace Assets.Scripts.Level.Manager
         {
             DeactiveController();
         }
+
         private void Start()
         {
             TriggerController();
         }
+
         public void TriggerController()
         {
             enemyPhysicController.OpenCollider();
@@ -94,7 +92,7 @@ namespace Assets.Scripts.Level.Manager
         internal void OnReadyToAttack()
         {
             enemyAttackController.TriggerToAction();
-            
+
             ActiveteController();
         }
 
@@ -112,8 +110,8 @@ namespace Assets.Scripts.Level.Manager
             ScoreSignals.Instance.onDeathScoreTaken?.Invoke();
 
             PushToPool(PoolObjectType.Enemy, gameObject);
-
         }
+
         public Transform GetPlayerTransform()
         {
             return PlayerSignals.Instance.onGetPlayerTransform?.Invoke();
@@ -123,6 +121,5 @@ namespace Assets.Scripts.Level.Manager
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
         }
-
     }
 }

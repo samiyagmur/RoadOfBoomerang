@@ -1,30 +1,24 @@
-﻿using Data.ValueObject;
-using Interfaces;
+﻿using Interfaces;
 using Scripts.Extetions;
 using Scripts.Helper.Interfaces;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
 using Signals;
-using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class CollectableSpawnController :ISpawner, IPullObject, IPushObject
+    public class CollectableSpawnController : ISpawner, IPullObject, IPushObject
     {
         public bool IsActivating { get; set; }
 
-        private List<GameObject> _spawnedObject=new();
+        private List<GameObject> _spawnedObject = new();
 
         private SpawnManager _spawnManager;
 
         private CollectableSpawnData _collectableSpawnData;
-
-        private int _counter;
-
 
         public CollectableSpawnController(SpawnManager spawnManager)
         {
@@ -37,7 +31,7 @@ namespace Scripts.Level.Controller
         {
             if (!IsActivating) return;
 
-            for (int _counter = 0; _counter < _collectableSpawnData.spawnLimit; _counter++) 
+            for (int _counter = 0; _counter < _collectableSpawnData.spawnLimit; _counter++)
             {
                 if (!IsActivating) break;
 
@@ -51,9 +45,8 @@ namespace Scripts.Level.Controller
 
             _spawnedObject.Add(collectable);
 
-            collectable.transform.position = SelfExtetions.GetRandomTopPosition(_collectableSpawnData.collectableSpawnZone) + new Vector3(0,1,0);
+            collectable.transform.position = SelfExtetions.GetRandomTopPosition(_collectableSpawnData.collectableSpawnZone) + new Vector3(0, 1, 0);
         }
-
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {

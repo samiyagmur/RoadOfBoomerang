@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.Level.Manager;
-using Interfaces;
 using Scripts.Helper.Interfaces;
-using Signals;
-using System.Collections;
-using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
@@ -18,7 +14,6 @@ namespace Scripts.Level.Controller
 
         private void OnTriggerEnter(Collider other)
         {
-
             if (other.TryGetComponent(out PlayerDetectController playerDetectController))
             {
                 enemyManager.EnterDetectArea();
@@ -39,6 +34,7 @@ namespace Scripts.Level.Controller
         {
             collider.enabled = false;
         }
+
         public void OpenCollider()
         {
             collider.enabled = true;

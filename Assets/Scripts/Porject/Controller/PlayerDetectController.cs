@@ -1,7 +1,5 @@
 ﻿using Scripts.Helper.Interfaces;
 using Scripts.Level.Manager;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Scripts.Level.Controller

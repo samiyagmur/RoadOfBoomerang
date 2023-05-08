@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace Data.ValueObject
 {
@@ -11,5 +9,4 @@ namespace Data.ValueObject
 
         public int LastGoldScore;
     }
-    
 }

@@ -1,6 +1,4 @@
 ﻿using Script.Signals;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,10 +24,10 @@ namespace Manager
         {
             AudioSignals.Instance.onUpdateSoundVolume -= OnUpdateSoundVolume;
             AudioSignals.Instance.onUpdateSoundVolume -= OnUpdateSoundVolume;
-
         }
 
         private void OnDisable() => UnsubscribeEvents();
+
         private void OnUpdateSoundStatus(bool status)
         {
             audioSource.mute = status;
@@ -39,7 +37,5 @@ namespace Manager
         {
             audioSource.volume = volume;
         }
-
-
     }
 }

@@ -1,9 +1,5 @@
 using Controller;
-using Data.ValueObject;
 using Script.Signals;
-using System;
-using System.Collections.Generic;
-using TMPro;
 using Type;
 using UnityEngine;
 
@@ -11,7 +7,6 @@ namespace Managers
 {
     public class UIManager : MonoBehaviour
     {
-
         [SerializeField]
         private UIPanelController uIPanelController;
 
@@ -27,13 +22,11 @@ namespace Managers
 
         private void SubscribeEvents()
         {
-
             UISignals.Instance.onOpenPanel += OnOpenPanel;
             UISignals.Instance.onClosePanel += OnClosePanel;
             UISignals.Instance.onPrintLastGoldScore += OnInitLastGoldScore;
             UISignals.Instance.onHealthDecrase += OnHealthDecrase;
             UISignals.Instance.onPrintLastDeathScore += OnPrintLastDeathScore;
-
 
             CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
             CoreGameSignals.Instance.onPlay += OnPlay;
@@ -48,14 +41,12 @@ namespace Managers
             UISignals.Instance.onHealthDecrase -= OnHealthDecrase;
             UISignals.Instance.onPrintLastDeathScore -= OnPrintLastDeathScore;
 
-
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
             CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onPlay -= OnPlay;
         }
 
         private void OnDisable() => UnsubscribeEvents();
-
 
         private void OnOpenPanel(UIPanelType panelType) => uIPanelController.ChangePanel(panelType, true);
 
@@ -70,6 +61,7 @@ namespace Managers
         {
             CoreGameSignals.Instance.onPlay?.Invoke();
         }
+
         private void OnPlay()
         {
             OnClosePanel(UIPanelType.StartPanel);
@@ -93,7 +85,6 @@ namespace Managers
 
         internal void ChangePanelStatusOnPressTryAgain(UIPanelType uIPanelType)
         {
-
             OnClosePanel(uIPanelType);
 
             OnOpenPanel(UIPanelType.StartPanel);
@@ -108,7 +99,6 @@ namespace Managers
             levelPanelController.PrintHealth(health);
         }
 
-
         internal void OnInitLastGoldScore(int value)
         {
             levelPanelController.InitGoldScore(value);
@@ -119,6 +109,5 @@ namespace Managers
             _lastDeathScore = value;
             levelPanelController.InitDeathScore(value);
         }
-
     }
 }

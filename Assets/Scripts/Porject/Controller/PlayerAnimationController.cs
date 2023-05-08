@@ -1,12 +1,8 @@
-﻿using Data.ValueObject;
-using Scripts.Helper.Interfaces;
+﻿using Scripts.Extetions;
 using Scripts.Level.Data.ValueObject;
-using System;
-using System.Collections;
-using UnityEngine;
-using Scripts.Extetions;
 using Scripts.Level.Manager;
 using Scripts.Level.Type;
+using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
@@ -29,14 +25,17 @@ namespace Scripts.Level.Controller
         {
             _playerData = playerData;
         }
+
         public void OnDeadPlayer()
         {
             playerManager.OnDeadPlayer();
         }
+
         internal void SetDefaultAnimation()
         {
             ChangeAnimationType(PlayerAnimationType.Other);
         }
+
         internal void PlayDadAnimation()
         {
             ChangeAnimationType(PlayerAnimationType.Dead);
@@ -46,11 +45,12 @@ namespace Scripts.Level.Controller
         {
             animator.Play(playeranimationtype.ToString());
         }
+
         private void FixedUpdate()
         {
             PlayAnimation();
         }
-    
+
         internal void PlayAnimation()
         {
             if (!IsActive) return;

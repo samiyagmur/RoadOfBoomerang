@@ -1,24 +1,21 @@
-﻿using Scripts.Level.Data.UnityObject;
-using Scripts.Signals;
-using Interfaces;
+﻿using Interfaces;
 using Script.Signals;
 using Scripts.Level.Controller;
+using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
+using Scripts.Signals;
 using Signals;
 using UnityEngine;
-using System;
-using System.Threading.Tasks;
 
 namespace Scripts.Level.Manager
 {
     public class PlayerManager : MonoBehaviour, IManagable
-    {       
+    {
         [SerializeField]
         private PlayerAttackController playerAttackController;
 
         [SerializeField]
         private PlayerHealthController playerHealthController;
-
 
         [SerializeField]
         private PlayerMovementController playerMovementController;
@@ -26,12 +23,12 @@ namespace Scripts.Level.Manager
         [SerializeField]
         private PlayerAnimationController playerAnimationController;
 
-
         private PlayerData _playerData;
 
         private float _camDiraction;
 
         public string DataPath => "Data/Cd_PlayerData";
+
         public void Awake()
         {
             GetData();
@@ -77,8 +74,6 @@ namespace Scripts.Level.Manager
             PlayerSignals.Instance.onGetPlayerTransform -= OnGetPlayerTransform;
         }
 
-
-
         public void OnDisable()
         {
             DeactiveController();
@@ -90,12 +85,10 @@ namespace Scripts.Level.Manager
         {
             TriggerController();
 
-
-
-           _camDiraction = CameraSignals.Instance.onSpawnPlayer.Invoke(gameObject);
+            _camDiraction = CameraSignals.Instance.onSpawnPlayer.Invoke(gameObject);
         }
 
-        private void OnInputTouch(float diraction,Vector3 joystick)
+        private void OnInputTouch(float diraction, Vector3 joystick)
         {
             playerMovementController.Diraction = diraction;
 
@@ -106,7 +99,6 @@ namespace Scripts.Level.Manager
 
         private void OnInputReleased()
         {
-            
         }
 
         public void TriggerController()
@@ -151,11 +143,9 @@ namespace Scripts.Level.Manager
 
         internal void HitEnemy(GameObject enemyObject)
         {
-
             playerAttackController.TargetObject = enemyObject;
 
             playerAttackController.TriggerAction();
-
         }
 
         internal void HitDamager(float damage)
@@ -169,10 +159,10 @@ namespace Scripts.Level.Manager
         {
             ScoreSignals.Instance.onScoreTaken?.Invoke();
         }
+
         private Transform OnGetPlayerTransform()
         {
             return transform;
         }
-
     }
 }

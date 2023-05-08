@@ -1,13 +1,11 @@
-﻿using Scripts.Level.Data.ValueObject;
-using System;
-using System.Collections;
-using UnityEngine;
-using DG.Tweening;
-using System.Collections.Generic;
-using Random = UnityEngine.Random;
-using Type;
-using Signals;
+﻿using DG.Tweening;
 using Interfaces;
+using Scripts.Level.Data.ValueObject;
+using Signals;
+using System.Collections.Generic;
+using Type;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Scripts.Level.Controller
 {
@@ -19,9 +17,9 @@ namespace Scripts.Level.Controller
 
         private Transform _target;
 
-        List<Vector3[]> waypoints;
+        private List<Vector3[]> waypoints;
 
-        Vector3[] waypoints1 = new[]
+        private Vector3[] waypoints1 = new[]
         {
             new Vector3(3.042855f, 1.576073f, 2.527859f),
             new Vector3(3.22991f, 1.600395f, 6.395806f),
@@ -30,7 +28,7 @@ namespace Scripts.Level.Controller
             Vector3.zero
         };
 
-        Vector3[] waypoints2 = new[]
+        private Vector3[] waypoints2 = new[]
         {
             new Vector3(-2.516079f, 2.496094f, -1.866241f),
             new Vector3(-5.835547f, 2.492188f, -2.287019f),
@@ -41,8 +39,7 @@ namespace Scripts.Level.Controller
             Vector3.zero
         };
 
-
-        Vector3[] waypoints3 = new[]
+        private Vector3[] waypoints3 = new[]
         {
             new Vector3(4.074979f, 2.496094f, -0.907101f),
             new Vector3(5.914858f, 2.492188f, -3.30452f),
@@ -51,6 +48,7 @@ namespace Scripts.Level.Controller
             new Vector3(-2.55974f, 2.480469f, -6.649756f),
             Vector3.zero
         };
+
         private bool isFinishMovement;
 
         internal void SetData(BoomerangData boomerangData, Transform target)
@@ -59,6 +57,7 @@ namespace Scripts.Level.Controller
 
             _target = target;
         }
+
         internal void SetDataToStart(Vector3 startPos)
         {
             for (int i = 0; i < waypoints.Count; i++)
@@ -69,7 +68,6 @@ namespace Scripts.Level.Controller
                 }
             }
         }
-
 
         public void TriggerAction()
         {
@@ -88,8 +86,6 @@ namespace Scripts.Level.Controller
             Move(waypoints[selectedWayPoint]);
         }
 
-
-
         private void Rotate()
         {
             transform.DORotate(new Vector3(0, 360 * _boomerangData.rotations, 0), _boomerangData.duration, RotateMode.WorldAxisAdd)
@@ -98,7 +94,7 @@ namespace Scripts.Level.Controller
 
         private void Move(Vector3[] waypoints)
         {
-            transform.DOLocalPath(waypoints,(_boomerangData.arrivalTime)).SetEase(Ease.InOutSine).OnComplete(() => isFinishMovement=true);
+            transform.DOLocalPath(waypoints, (_boomerangData.arrivalTime)).SetEase(Ease.InOutSine).OnComplete(() => isFinishMovement = true);
         }
 
         private int SelectWaypoint()
@@ -110,7 +106,7 @@ namespace Scripts.Level.Controller
         {
             if (isFinishMovement)
             {
-                transform.DOMove(_target.position, 0.5f).OnComplete(()=>DisableObject());
+                transform.DOMove(_target.position, 0.5f).OnComplete(() => DisableObject());
             }
         }
 
@@ -119,7 +115,6 @@ namespace Scripts.Level.Controller
             PushToPool(PoolObjectType.Boomerang, gameObject);
         }
 
- 
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);

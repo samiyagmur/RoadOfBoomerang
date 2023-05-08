@@ -1,6 +1,4 @@
-﻿using Data.ValueObject;
-using Extantions;
-using System.Collections.Generic;
+﻿using Extantions;
 using Type;
 using UnityEngine.Events;
 

@@ -1,28 +1,19 @@
 ﻿using Cinemachine;
-using Controller;
-using Data.UnityObject;
-using Data.ValueObject;
-using Script.Signals;
 using Scripts.Signals;
-using System;
-
-using System.Collections;
 using UnityEngine;
 
 namespace Manager
 {
     public class CameraManager : MonoBehaviour
     {
-
         //[SerializeField]
         //private CameraSettingController cameraSettingController;
 
-        //[SerializeField] 
+        //[SerializeField]
         //private CinemachineStateDrivenCamera stateDrivenCamera;
 
         //[SerializeField]
         //private CameraStateController cameraStateController;
-
 
         [SerializeField]
         private CinemachineVirtualCamera _virtualCamera;
@@ -36,10 +27,10 @@ namespace Manager
 
         private void Init()
         {
-           // cameraSettingController.SetData(GetData().cameraSettingData, stateDrivenCamera);
+            // cameraSettingController.SetData(GetData().cameraSettingData, stateDrivenCamera);
         }
 
-       // private CameraData GetData() => Resources.Load<Cd_CameraData>(_dataPath).cameraData;
+        // private CameraData GetData() => Resources.Load<Cd_CameraData>(_dataPath).cameraData;
 
         private void OnEnable() => SubscribeEvents();
 
@@ -52,8 +43,6 @@ namespace Manager
             CameraSignals.Instance.onSpawnPlayer += OnSpawnPlayer;
         }
 
-        
-
         private void UnsubscribeEvents()
         {
             //CoreGameSignals.Instance.onPlay -= OnPlay;
@@ -61,15 +50,13 @@ namespace Manager
             //CoreGameSignals.Instance.onReset -= OnReset;
 
             CameraSignals.Instance.onSpawnPlayer -= OnSpawnPlayer;
-
         }
 
-
         private void OnDisable() => UnsubscribeEvents();
+
         //private void OnPlay() => cameraStateController.WhenPressPlay();
         //private void OnFail() => cameraStateController.WhenCharacterFail();
         //private void OnReset() => cameraStateController.WhenPressReset();
-
 
         private float OnSpawnPlayer(GameObject player)
         {
@@ -77,7 +64,5 @@ namespace Manager
 
             return _virtualCamera.transform.rotation.eulerAngles.y;
         }
-
-
     }
 }

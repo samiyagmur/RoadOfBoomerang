@@ -1,8 +1,5 @@
-﻿using Assets.Scripts.Level.Manager;
-using Scripts.Helper.Interfaces;
-using Scripts.Level.Manager;
+﻿using Scripts.Level.Manager;
 using Signals;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -27,6 +24,5 @@ namespace Scripts.Level.Controller
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
         }
-
     }
 }

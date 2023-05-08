@@ -1,14 +1,12 @@
 ﻿using Interfaces;
-using Scripts.Helper.Interfaces;
 using Scripts.Level.Manager;
 using Signals;
-using System.Collections;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class PlayerPhysicController : MonoBehaviour,IPushObject
+    public class PlayerPhysicController : MonoBehaviour, IPushObject
     {
         [SerializeField]
         private PlayerManager playerManager;
@@ -27,6 +25,7 @@ namespace Scripts.Level.Controller
                 PushToPool(PoolObjectType.SmallGold, other.transform.parent.gameObject);
             }
         }
+
         public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
         {
             PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);

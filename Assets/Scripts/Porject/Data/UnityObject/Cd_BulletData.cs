@@ -1,6 +1,4 @@
 ﻿using Scripts.Level.Data.ValueObject;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Level.Data.UnityObject

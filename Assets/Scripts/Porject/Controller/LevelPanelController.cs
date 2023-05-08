@@ -1,13 +1,11 @@
 ﻿using Managers;
 using Scripts.Extetions;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Controller
 {
-
     public class LevelPanelController : MonoBehaviour
     {
         [SerializeField]
@@ -22,16 +20,14 @@ namespace Controller
         [SerializeField]
         private Image image;
 
-
         internal void InitGoldScore(int value)
         {
-
             gold.text = value.ToString();
         }
 
         internal void PrintHealth(float health)
         {
-            image.fillAmount = SelfExtetions.Map(health,0,100,0,1);
+            image.fillAmount = SelfExtetions.Map(health, 0, 100, 0, 1);
         }
 
         internal void InitDeathScore(int value)

@@ -1,11 +1,9 @@
-﻿using Scripts.Level.Data.ValueObject;
-using System;
+﻿using System;
 
 namespace Data.ValueObject
 {
     [Serializable]
     public class LevelData
     {
-
     }
 }

@@ -1,17 +1,10 @@
 ﻿using Data.UnityObject;
-using Interfaces;
 using Script.Signals;
 using Scripts.Helper.Interfaces;
-using Scripts.Level.Controller;
-using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Type;
-using Scripts.Signals;
-using Signals;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using Type;
 using UnityEngine;
 
@@ -19,12 +12,11 @@ namespace Scripts.Level.Manager
 {
     public class SpawnManager : MonoBehaviour
     {
-
-        public string DataPath => "Data/Cd_SpawnData";
-
         public SpawnData SpawnData { get; set; }
 
-        public Dictionary<PoolObjectType,GameObject> spawnedContainer { get; set; }
+        public Dictionary<PoolObjectType, GameObject> spawnedContainer { get; set; }
+
+        public string DataPath => "Data/Cd_SpawnData";
 
         private List<ISpawner> _activateable = new List<ISpawner>();
 
@@ -47,7 +39,6 @@ namespace Scripts.Level.Manager
 
                 _activateable.Add(shop);
             }
-
         }
 
         public void OnEnable()
@@ -76,7 +67,6 @@ namespace Scripts.Level.Manager
             DeactiveController();
 
             UnsubscribeEvents();
-
         }
 
         private void OnLevelInitilize()
@@ -115,7 +105,6 @@ namespace Scripts.Level.Manager
             }
         }
 
-
         private void OnReset()
         {
             foreach (ISpawner activates in _activateable)
@@ -124,6 +113,5 @@ namespace Scripts.Level.Manager
             }
             DeactiveController();
         }
-
     }
 }

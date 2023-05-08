@@ -1,13 +1,8 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Manager
 {
     public class CharacterManager : MonoBehaviour
     {
-
-
-        
-
     }
 }

@@ -1,18 +1,14 @@
 ﻿using Assets.Scripts.Level.Manager;
-using Scripts.Extetions;
-using Scripts.Helper.Interfaces;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Type;
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Scripts.Level.Controller
 {
-    public class EnemyAnimationController : MonoBehaviour    
+    public class EnemyAnimationController : MonoBehaviour
     {
-        private EnemyAnimationData _enemyAnimationData;
+        public bool IsActive { private get; set; }
 
         [SerializeField]
         private NavMeshAgent navMeshAgent;
@@ -23,7 +19,7 @@ namespace Scripts.Level.Controller
         [SerializeField]
         private EnemyManager enemyManager;
 
-        public bool IsActive {private get ; set ; }
+        private EnemyAnimationData _enemyAnimationData;
 
         internal void SetData(EnemyAnimationData enemyAnimationData)
         {
@@ -48,7 +44,6 @@ namespace Scripts.Level.Controller
             ChangeAnimation(EnemyAnimationType.Run);
         }
 
-
         public void TriggerAction()
         {
             ChangeAnimation(EnemyAnimationType.Run);
@@ -70,6 +65,5 @@ namespace Scripts.Level.Controller
         {
             animator.Play(enemyAnimationType.ToString());
         }
-
     }
 }

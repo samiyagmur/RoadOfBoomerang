@@ -12,6 +12,5 @@ namespace Script.Signals
         public UnityAction onFail = delegate { };
 
         public UnityAction onReset = delegate { };
-
     }
 }

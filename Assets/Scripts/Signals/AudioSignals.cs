@@ -1,6 +1,4 @@
 ﻿using Extantions;
-using System.Collections;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Script.Signals

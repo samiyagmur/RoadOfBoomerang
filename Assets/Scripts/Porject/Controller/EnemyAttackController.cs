@@ -2,17 +2,13 @@
 using Interfaces;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
-using Scripts.Level.Type;
 using Signals;
-using System;
-using System.Collections;
-using System.Threading.Tasks;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class EnemyAttackController : MonoBehaviour,IPullObject
+    public class EnemyAttackController : MonoBehaviour, IPullObject
     {
         public bool IsActive { get; set; }
 
@@ -29,12 +25,11 @@ namespace Scripts.Level.Controller
             _enemyAttackData = enemyAttackData;
         }
 
-        public  void TriggerToAction()
+        public void TriggerToAction()
         {
             if (!IsActive) return;
 
             Attack();
-            
         }
 
         private void Attack()
@@ -45,15 +40,13 @@ namespace Scripts.Level.Controller
 
             if (bullet.TryGetComponent(out BulletManager bulletmanager))
             {
-               bulletmanager.Target = spawnPosition.transform;
+                bulletmanager.Target = spawnPosition.transform;
             }
-
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {
             return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);
         }
-
     }
 }

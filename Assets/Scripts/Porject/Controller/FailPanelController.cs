@@ -1,6 +1,4 @@
 ﻿using Managers;
-using System;
-using System.Collections;
 using TMPro;
 using Type;
 using UnityEngine;
@@ -33,9 +31,10 @@ namespace Controller
         {
             lastDeathScore.text = value.ToString();
         }
+
         private void InitButton()
         {
-            tryAgainButton.onClick.AddListener(delegate { ArangePanelStatus(UIPanelType.FailPanel);});
+            tryAgainButton.onClick.AddListener(delegate { ArangePanelStatus(UIPanelType.FailPanel); });
         }
 
         private void ArangePanelStatus(UIPanelType uIPanelType)
@@ -43,6 +42,5 @@ namespace Controller
             Debug.Log("sssss");
             manager.ChangePanelStatusOnPressTryAgain(uIPanelType);
         }
-
     }
 }

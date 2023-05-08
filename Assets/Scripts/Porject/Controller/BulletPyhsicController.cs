@@ -1,8 +1,6 @@
 ﻿using Interfaces;
-using Scripts.Helper.Interfaces;
 using Scripts.Level.Manager;
 using Signals;
-using System.Collections;
 using Type;
 using UnityEngine;
 
@@ -17,7 +15,6 @@ namespace Scripts.Level.Controller
         {
             PushToPool(PoolObjectType.Bullet, transform.parent.gameObject);
         }
-
 
         public float TakeDamage()
         {

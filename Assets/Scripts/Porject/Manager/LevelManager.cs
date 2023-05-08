@@ -1,13 +1,8 @@
 using Command;
-using Controller;
 using Data.UnityObject;
 using Data.ValueObject;
 using Script.Signals;
-using Scripts.Helper.Interfaces;
-using Scripts.Level.Type;
 using Signals;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Managers
@@ -39,17 +34,14 @@ namespace Managers
         private void OnEnable()
         {
             SubscribeEvents();
-
         }
 
         private void SubscribeEvents()
         {
-
             CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
             CoreGameSignals.Instance.onPlay += OnPlay;
             CoreGameSignals.Instance.onFail += OnFail;
             CoreGameSignals.Instance.onReset += OnReset;
-
         }
 
         private void UnsubscribeEvents()
@@ -57,11 +49,11 @@ namespace Managers
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
             CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onPlay -= OnPlay;
-            CoreGameSignals.Instance.onReset -=OnReset;
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
+
         private void OnDisable()
         {
-
             UnsubscribeEvents();
         }
 
@@ -72,12 +64,13 @@ namespace Managers
 
         private void OnLevelInitilize()
         {
-           levelLoaderCommand.InsitializeLevel(_levelID, levelholder);
+            levelLoaderCommand.InsitializeLevel(_levelID, levelholder);
         }
+
         private void OnPlay()
         {
-
         }
+
         private void OnFail()
         {
             clearActiveLevelCommand.ClearActiveLevel(levelholder);
@@ -88,7 +81,6 @@ namespace Managers
         private void OnReset()
         {
             SaveLoadSignals.Instance.onSave?.Invoke();
-
         }
     }
 }
