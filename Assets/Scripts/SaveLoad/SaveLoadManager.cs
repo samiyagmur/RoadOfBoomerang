@@ -1,43 +1,88 @@
-using Command;
 using Interfaces;
-using Managers;
+using Scripts.Helper.Interfaces;
+using Scripts.Level.Data.UnityObject;
+using Scripts.Level.Data.ValueObject;
+using Scripts.SaveLoad;
 using Signals;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Manager
 {
-    public class SaveLoadManager : ISaver, ILoader
+    [System.Serializable]
+    public class SaveLoadManager : MonoBehaviour
     {
+        [SerializeField]
+        private List<DataContainer> dataContainer;
 
-        private const string _key = "_score";
-        private string _dataPath = _key + "1917" + ".es3";
 
-        public void UpdateSave<T>(T value)
+        private const string defaultFile = "NewFile";
+
+        private void Awake()
         {
-            if (!ES3.FileExists(_dataPath))
-            {
-                Debug.Log(value);
+            Load();
+        }
+        private void OnEnable() => SubscribeEvents();
 
-                ES3.Save(_key, value, _dataPath);
-            }
+        private void SubscribeEvents()
+        {
+            SaveLoadSignals.Instance.onSave += OnSave;
+        }
 
+        private void UnsubscribeEvents()
+        {
+            SaveLoadSignals.Instance.onSave -= OnSave;
+        }
+
+        private void OnDisable() => UnsubscribeEvents();
+
+
+        private void OnSave()
+        {
+            UpdateSave();
+        }
+
+        private void Load()
+        {
+            UpdateLoad();
         }
 
 
-        public T UpdateLoad<T>()
+        public void UpdateSave()
         {
-            if (!ES3.FileExists(_dataPath)) return default(T);
+            foreach (DataContainer data in dataContainer)
+            {
+                string _dataPath = data._key + "-" + data._id + ".es3";
 
-            if (!ES3.KeyExists(_key, _dataPath)) return default(T);
+                //if (ES3.FileExists(_dataPath))
+                //{
+                //    Debug.Log("s");
 
-            Debug.Log("working");
+                //    ES3.DeleteFile(_dataPath);
 
-            T objectToReturn = ES3.Load<T>(_key, _dataPath);
+                //}
 
-            return objectToReturn;
+                ES3.Save(data._key, data.scriptableObject, _dataPath);
+            }
+        }
+
+        public void UpdateLoad()
+        {
+            foreach (DataContainer data in dataContainer)
+            {
+                string _dataPath = data._key + "-" + data._id + ".es3";
+
+                if (!ES3.FileExists(_dataPath))
+                {
+                    ES3.Save(data._key, data.scriptableObject, _dataPath);
+                }
+                else
+                {
+                    data.scriptableObject = ES3.Load<ScriptableObject>(data._key, _dataPath);
+                }
+            }
         }
     }
 }

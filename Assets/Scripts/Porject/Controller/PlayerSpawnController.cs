@@ -6,18 +6,21 @@ using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
 using Signals;
 using System.Collections;
+using System.Collections.Generic;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class PlayerSpawnController :IActivable, IPullObject
+    public class PlayerSpawnController :ISpawner, IPullObject, IPushObject
     {
         public bool IsActivating { get; set; }
 
         private SpawnManager _spawnManager;
 
         private PlayerSpawnData _playerSpawnData;
+
+        private List<GameObject> _spawnedObject = new();
 
         public PlayerSpawnController(SpawnManager spawnManager)
         {
@@ -30,19 +33,35 @@ namespace Scripts.Level.Controller
         {
             if (!IsActivating) return;
 
-            StartAction();
+            Spawn();
         }
 
-        public void StartAction()
+        public void Spawn()
         {
-            GameObject enemy = PullFromPool(PoolObjectType.Player);
+            GameObject player = PullFromPool(PoolObjectType.Player);
 
-            enemy.transform.position = Vector3.zero;
+            player.transform.position = Vector3.zero;
+
+            _spawnedObject.Add(player);
+
         }
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {
             return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);
+        }
+
+        public void Reset()
+        {
+            foreach (var item in _spawnedObject)
+            {
+                PushToPool(PoolObjectType.Player, item);
+            }
+        }
+
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolObjectType, obj);
         }
     }
 }

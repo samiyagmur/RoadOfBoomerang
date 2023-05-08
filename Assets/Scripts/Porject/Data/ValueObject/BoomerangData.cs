@@ -9,7 +9,7 @@ namespace Scripts.Level.Data.ValueObject
     {
         public int damage;
 
-        public int speed;
+        public int arrivalTime;
 
         public int rotations;
 

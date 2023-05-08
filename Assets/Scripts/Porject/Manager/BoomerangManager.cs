@@ -1,13 +1,15 @@
 ﻿using Interfaces;
+using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
 using Signals;
+using System;
 using System.Collections;
 using Type;
 using UnityEngine;
 
-namespace Assets.Scripts.Level.Manager
+namespace Scripts.Level.Manager
 {
     public class BoomerangManager : MonoBehaviour
     {
@@ -31,8 +33,6 @@ namespace Assets.Scripts.Level.Manager
 
         public void SetData(Transform target)
         {
-            Debug.Log(target);
-
             Damage = _boomerangData.damage;
 
             boomerangMovementController.SetData(_boomerangData, target);
@@ -41,21 +41,26 @@ namespace Assets.Scripts.Level.Manager
         public void OnEnable()
         {
             ActiveteController();
+            SubscribeEvents();
         }
 
-        public void ActiveteController()
-        {
-            boomerangMovementController.IsActivate = true;
-        }
 
-        public void DeactiveController()
+        private void SubscribeEvents()
         {
 
-            boomerangMovementController.IsActivate = false;
+            CoreGameSignals.Instance.onReset += OnReset;
         }
+
+
+        private void UnsubscribeEvents()
+        {
+            CoreGameSignals.Instance.onReset -= OnReset;
+        }
+
 
         public void OnDisable()
         {
+            UnsubscribeEvents();
             DeactiveController();
         }
         private void Start()
@@ -65,6 +70,19 @@ namespace Assets.Scripts.Level.Manager
         public void TriggerController()
         {
             boomerangMovementController.TriggerAction();
+        }
+        public void ActiveteController()
+        {
+            boomerangMovementController.IsActive = true;
+        }
+        public void DeactiveController()
+        {
+
+            boomerangMovementController.IsActive = false;
+        }
+        private void OnReset()
+        {
+            PushToPool(PoolObjectType.Boomerang, gameObject);
         }
 
         private void Update()

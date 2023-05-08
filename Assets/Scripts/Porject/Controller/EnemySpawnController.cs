@@ -7,22 +7,19 @@ using Type;
 using UnityEngine;
 using Scripts.Extetions;
 using System.Threading.Tasks;
-using Random = UnityEngine.Random;
-using Data.ValueObject;
+using System.Collections.Generic;
 
 namespace Scripts.Level.Controller
 {
-    public class EnemySpawnController :IActivable, IPullObject
+    public class EnemySpawnController :ISpawner, IPullObject, IPushObject
     {
-
         public bool IsActivating { get; set; }
 
-        private int _counter;
+        private List<GameObject> _spawnedObject = new();
 
         private SpawnManager _spawnManager;
 
         private EnemySpawnData _enemySpawnData;
-
 
         public EnemySpawnController(SpawnManager spawnManager)
         {
@@ -33,28 +30,28 @@ namespace Scripts.Level.Controller
 
         public void TriggerAction()
         {
-            //if (!IsActivating) return;
+            if (!IsActivating) return;
 
             SpawnFactory();
         }
 
         private async void SpawnFactory()
         {
-            while (_counter < 1)
+            for (int i = 0; i < 1; i++)
             {
                 if (!IsActivating) break;
 
                 await Task.Delay((int)_enemySpawnData.spawnRange);
 
-                 StartAction();
-
-                _counter++;
+                Spawn();
             }
         }
 
-        public void StartAction()
+        public void Spawn()
         {
             GameObject enemy = PullFromPool(PoolObjectType.Enemy);
+
+            _spawnedObject.Add(enemy);
 
             enemy.transform.position = SelfExtetions.GetRandomTopPosition(_enemySpawnData.enemySpawnZone);
         }
@@ -64,5 +61,17 @@ namespace Scripts.Level.Controller
             return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);
         }
 
+        public void Reset()
+        {
+            foreach (var item in _spawnedObject)
+            {
+                PushToPool(PoolObjectType.Enemy, item);
+            }
+        }
+
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolObjectType, obj);
+        }
     }
 }

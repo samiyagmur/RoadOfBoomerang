@@ -1,14 +1,17 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Helper.Interfaces
 {
-    public interface IActivable 
+    public interface ISpawner 
     {
+
         bool IsActivating { get; set; }
 
         void TriggerAction();
 
-        void StartAction();
+        void Spawn();
+        void Reset();
     }
 }

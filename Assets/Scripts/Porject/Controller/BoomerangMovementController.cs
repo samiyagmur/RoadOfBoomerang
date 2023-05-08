@@ -10,7 +10,7 @@ namespace Scripts.Level.Controller
 {
     public class BoomerangMovementController : MonoBehaviour
     {
-        public bool IsActivate { get; set; }
+        public bool IsActive { get; set; }
 
         private BoomerangData _boomerangData;
 
@@ -59,18 +59,17 @@ namespace Scripts.Level.Controller
 
         public void TriggerAction()
         {
+            if (!IsActive) return;
+
             waypoints = new List<Vector3[]> { waypoints1, waypoints2, waypoints3 };
 
             int selectedWayPoint = SelectWaypoint();
 
-
-            waypoints[selectedWayPoint][waypoints[selectedWayPoint].Length-1] = _target.position + new Vector3(0, 1.25f, 0);
+            waypoints[selectedWayPoint][waypoints[selectedWayPoint].Length - 1] = _target.position + new Vector3(0, 1.25f, 0);
 
             Rotate();
 
             Move(waypoints[selectedWayPoint]);
-
-            if (IsActivate) return;
 
         }
 
@@ -87,9 +86,7 @@ namespace Scripts.Level.Controller
 
         private void Move(Vector3[] waypoints)
         {
-            Debug.Log(_target);
-
-            transform.DOPath(waypoints,1.2f).SetEase(Ease.InOutSine);
+            transform.DOPath(waypoints,(_boomerangData.arrivalTime)).SetEase(Ease.InOutSine);
         }
 
     }

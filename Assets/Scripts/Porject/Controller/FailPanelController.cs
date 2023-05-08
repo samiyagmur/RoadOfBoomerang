@@ -40,6 +40,7 @@ namespace Controller
 
         private void ArangePanelStatus(UIPanelType uIPanelType)
         {
+            Debug.Log("sssss");
             manager.ChangePanelStatusOnPressTryAgain(uIPanelType);
         }
 

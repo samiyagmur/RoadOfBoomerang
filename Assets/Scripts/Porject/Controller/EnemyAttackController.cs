@@ -14,6 +14,8 @@ namespace Scripts.Level.Controller
 {
     public class EnemyAttackController : MonoBehaviour,IPullObject
     {
+        public bool IsActive { get; set; }
+
         [SerializeField]
         private GameObject spawnPosition;
 
@@ -22,8 +24,6 @@ namespace Scripts.Level.Controller
 
         private EnemyAttackData _enemyAttackData;
 
-        public bool IsAttaking { get ; set ; }
-
         internal void SetData(EnemyAttackData enemyAttackData)
         {
             _enemyAttackData = enemyAttackData;
@@ -31,17 +31,16 @@ namespace Scripts.Level.Controller
 
         public  void TriggerToAction()
         {
-            Attack();
+            if (!IsActive) return;
 
-            if (IsAttaking)
-            {
-               
-            }
+            Attack();
 
         }
 
         private void Attack()
         {
+            Debug.Log("attack");
+
             GameObject bullet = PullFromPool(PoolObjectType.Bullet);
 
             bullet.transform.position = spawnPosition.transform.position;

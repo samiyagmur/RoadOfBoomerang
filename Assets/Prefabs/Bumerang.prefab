@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2769573739949906906}
   - component: {fileID: 4968698895175936460}
   - component: {fileID: 1285829047562756230}
-  m_Layer: 0
+  - component: {fileID: 8424849550760611239}
+  m_Layer: 19
   m_Name: Physic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,6 +59,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1880aadfe78c7b64ab7afce1f894b896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boomerangManager: {fileID: 7970266887881513292}
+--- !u!54 &8424849550760611239
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2769573739949906905}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!1 &2769573740406879730
 GameObject:
   m_ObjectHideFlags: 0
@@ -101,7 +119,7 @@ GameObject:
   - component: {fileID: 2769573740805775595}
   - component: {fileID: 7970266887881513292}
   - component: {fileID: 6941452114807458725}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Bumerang
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +135,7 @@ Transform:
   m_GameObject: {fileID: 2769573740805775594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2769573740406879731}
@@ -150,12 +168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80a39960198b1584999075d3bf0465c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waypoints:
-  - {x: 3.042855, y: 1.576073, z: 2.527859}
-  - {x: 3.22991, y: 1.600395, z: 6.395806}
-  - {x: 1.193167, y: 2.328041, z: 9.702092}
-  - {x: -0.5539322, y: 2.910147, z: 10.61282}
-  - {x: 0, y: 0, z: 0}
 --- !u!1 &2971586776362616470
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +219,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1

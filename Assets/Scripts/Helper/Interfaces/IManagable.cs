@@ -7,6 +7,12 @@ namespace Interfaces
     {
         string DataPath { get; }
 
+        void Awake();
+
+        void GetData();
+
+        void SetData();
+
         void OnEnable();
 
         void SubscribeEvents();

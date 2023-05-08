@@ -10,7 +10,7 @@ namespace Scripts.Level.Controller
 {
     public class EnemyMovementController :MonoBehaviour
     { 
-        public bool IsActivating { get; set; }
+        public bool IsActive { get; set; }
 
         [SerializeField]
         private NavMeshAgent agent;
@@ -29,16 +29,18 @@ namespace Scripts.Level.Controller
 
         private void Update()
         {
-            if (!IsActivating) return;
+            if (!IsActive) return;
 
             _playerTransform = enemyManager.GetPlayerTransform();
 
-             //StartMovement();
+             StartMovement();
         }
 
 
         public void StartMovement()
         {
+            agent.speed =_enemyMovementData.speed;
+
             agent.SetDestination(_playerTransform.position);
         }
     }

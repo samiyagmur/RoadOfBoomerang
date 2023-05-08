@@ -9,7 +9,7 @@ namespace Scripts.Level.Controller
 {
     public class PlayerMovementController :MonoBehaviour
     {
-        public bool IsActivating { get; set; }
+        public bool IsActive { get; set; }
 
         private float _diraction;
 
@@ -30,7 +30,7 @@ namespace Scripts.Level.Controller
         }
         internal void Move()
         {
-            if (!IsActivating) return;
+            if (!IsActive) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(JoystickDirection);
 

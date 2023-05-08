@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Cd_EnemyData
   m_EditorClassIdentifier: 
   EnemyData:
+    EnemyMovementData:
+      speed: 4
+    EnemyAnimationData:
+      animationSpeed: 0
     EnemyAttackData:
       Periods: 1

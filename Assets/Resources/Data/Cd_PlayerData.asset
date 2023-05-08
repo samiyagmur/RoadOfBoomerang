@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Cd_PlayerData
   m_EditorClassIdentifier: 
   PlayerData:
+    PlayerAnimationData:
+      AnimationSpeed: 0
     PlayerMovementData:
       Speed: 6
       TurnSpeed: 6

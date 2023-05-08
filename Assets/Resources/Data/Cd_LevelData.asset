@@ -12,20 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cce9290fd5e7741438a649c6b9b5dd30, type: 3}
   m_Name: Cd_LevelData
   m_EditorClassIdentifier: 
-  LevelData:
-  - spawnData:
-      enemySpawnData:
-        spawnCount: 0
-        spawnLimit: 100
-        spawnRange: 10
-        enemySpawnZone: {fileID: 2826552541090876814, guid: a2c50be0cda788941bbedb51758cd12e,
-          type: 3}
-      collectableSpawnData:
-        spawnCount: 0
-        spawnLimit: 20
-        spawnRange: 0
-        collectableSpawnZone: {fileID: 2826552541090876814, guid: a2c50be0cda788941bbedb51758cd12e,
-          type: 3}
-    playerData:
-      PlayerMovementData:
-        Speed: 6
+  LevelData: []

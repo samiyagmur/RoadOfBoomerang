@@ -6,10 +6,10 @@ using UnityEngine.Events;
 
 namespace Signals
 {
-    public class SaveLoadSignals<T>
+    public class SaveLoadSignals : MonoSingleton<SaveLoadSignals>
     {
-        public UnityAction<T> onSaveGame = delegate {   };
+        public UnityAction onSave = delegate { };
 
-   
+        public UnityAction onLoad = delegate { };
     }
 }

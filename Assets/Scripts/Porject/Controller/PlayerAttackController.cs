@@ -17,30 +17,24 @@ namespace Scripts.Level.Controller
         [SerializeField]
         private GameObject spawnPointForBoomerang;
 
-        public bool IsActivating { get; set; }
+        public bool IsActive { get; set; }
 
         public  GameObject TargetObject { get; set; }
 
-        public void StartAction()
-        {
-
-        }
-
         public void TriggerAction()
         {
-
-           // Attack();
-
-            if (!IsActivating) return;
-
+            Attack();
         }
 
         private void Attack()
         {
+            if (!IsActive) return;
+
             GameObject boomerang = PullFromPool(PoolObjectType.Boomerang);
 
+            Vector3 HorizontalOffset = new Vector3(0, 1, 0);
 
-            boomerang.transform.position = transform.position+new Vector3(0,1,0);
+            boomerang.transform.position = transform.position + HorizontalOffset;
 
             if (boomerang.TryGetComponent(out BoomerangManager boomerangManager))
             {

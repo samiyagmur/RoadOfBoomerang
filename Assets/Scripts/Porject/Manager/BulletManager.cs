@@ -1,4 +1,5 @@
 ﻿using Interfaces;
+using Script.Signals;
 using Scripts.Level.Controller;
 using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
@@ -48,22 +49,26 @@ namespace Scripts.Level.Manager
 
         public void OnEnable()
         {
+            SubscribeEvents(); 
             ActiveteController();
         }
-        public void ActiveteController()
+
+        private void SubscribeEvents()
         {
-            bulletMovementController.isActivate = true;
+
+            CoreGameSignals.Instance.onReset += OnReset;
         }
 
-        public void DeactiveController()
+        private void UnsubscribeEvents()
         {
-            bulletMovementController.isActivate = false;
-
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
+
 
         public void OnDisable()
         {
             DeactiveController();
+            UnsubscribeEvents(); ;
         }
 
         private void Start()
@@ -76,6 +81,21 @@ namespace Scripts.Level.Manager
             bulletMovementController.Target = Target;
 
             bulletMovementController.TriggerAction();
+        }
+
+        public void ActiveteController()
+        {
+            bulletMovementController.isActivate = true;
+        }
+
+        public void DeactiveController()
+        {
+            bulletMovementController.isActivate = false;
+
+        }
+        private void OnReset()
+        {
+            PushToPool(PoolObjectType.Bullet, gameObject); 
         }
 
         //private void Update()

@@ -7,6 +7,6 @@ namespace Scripts.Level.Data.ValueObject
     [Serializable]
     public class PlayerHealtData 
     {
-        public float MaxHealth;
+        public int MaxHealth;
     }
 }

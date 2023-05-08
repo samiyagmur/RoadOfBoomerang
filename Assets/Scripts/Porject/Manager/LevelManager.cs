@@ -5,6 +5,7 @@ using Data.ValueObject;
 using Script.Signals;
 using Scripts.Helper.Interfaces;
 using Scripts.Level.Type;
+using Signals;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,9 @@ namespace Managers
         [SerializeField]
         private LevelLoaderCommand levelLoaderCommand;
 
+        [SerializeField]
+        private ClearActiveLevelCommand clearActiveLevelCommand;
+
         private int _levelID;
 
         private string _dataPath = "Data/Cd_LevelData";
@@ -27,10 +31,10 @@ namespace Managers
 
         private void Awake()
         {
-            GetLevelData();
+            //GetLevelData();
         }
 
-        private LevelData GetLevelData() => _levelData = Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID];
+        private void GetLevelData() => _levelData = Resources.Load<Cd_LevelData>(_dataPath).LevelData[_levelID];
 
         private void OnEnable()
         {
@@ -76,16 +80,15 @@ namespace Managers
         }
         private void OnFail()
         {
-         
+            clearActiveLevelCommand.ClearActiveLevel(levelholder);
+
             CoreGameSignals.Instance.onReset?.Invoke();
         }
 
         private void OnReset()
         {
-
+            SaveLoadSignals.Instance.onSave?.Invoke();
 
         }
-
-    
     }
 }

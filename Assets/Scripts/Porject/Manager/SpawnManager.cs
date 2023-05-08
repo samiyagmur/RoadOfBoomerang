@@ -7,30 +7,35 @@ using Scripts.Level.Data.UnityObject;
 using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Type;
 using Scripts.Signals;
+using Signals;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Manager
 {
-    public class SpawnManager : MonoBehaviour,IManagable
+    public class SpawnManager : MonoBehaviour
     {
-        private List<IActivable> _activateable = new List<IActivable>();
 
         public string DataPath => "Data/Cd_SpawnData";
 
         public SpawnData SpawnData { get; set; }
 
-        private void Awake()
+        public Dictionary<PoolObjectType,GameObject> spawnedContainer { get; set; }
+
+        private List<ISpawner> _activateable = new List<ISpawner>();
+
+        public void Awake()
         {
             GetData();
 
             InitAllController();
         }
 
-        private void GetData() => SpawnData = Resources.Load<Cd_SpawnData>(DataPath).SpawnData;
+        public void GetData() => SpawnData = Resources.Load<Cd_SpawnData>(DataPath).SpawnData;
 
         private void InitAllController()
         {
@@ -38,19 +43,13 @@ namespace Scripts.Level.Manager
             {
                 string shopName = "Scripts.Level.Controller." + shopType.ToString() + "Controller";
 
-                IActivable shop = (IActivable)Activator.CreateInstance(System.Type.GetType(shopName), new object[] { this });
+                ISpawner shop = (ISpawner)Activator.CreateInstance(System.Type.GetType(shopName), new object[] { this });
 
                 _activateable.Add(shop);
             }
 
         }
 
-      
-        private void OnLevelInitilize()
-        {
-            Init();
-        }
-        private void Init() => TriggerController();
         public void OnEnable()
         {
             SubscribeEvents();
@@ -62,14 +61,14 @@ namespace Scripts.Level.Manager
         {
             CoreGameSignals.Instance.onLevelInitilize += OnLevelInitilize;
             CoreGameSignals.Instance.onPlay += OnPlay;
-            CoreGameSignals.Instance.onFail += OnFail;
+            CoreGameSignals.Instance.onReset += OnReset;
         }
 
         public void UnsubscribeEvents()
         {
             CoreGameSignals.Instance.onLevelInitilize -= OnLevelInitilize;
-            CoreGameSignals.Instance.onFail -= OnFail;
             CoreGameSignals.Instance.onPlay -= OnPlay;
+            CoreGameSignals.Instance.onReset -= OnReset;
         }
 
         public void OnDisable()
@@ -80,9 +79,21 @@ namespace Scripts.Level.Manager
 
         }
 
+        private void OnLevelInitilize()
+        {
+            ActiveteController();
+        }
+
+        private void OnPlay()
+        {
+            Init();
+        }
+
+        private void Init() => TriggerController();
+
         public void TriggerController()
         {
-            foreach (IActivable activates in _activateable)
+            foreach (ISpawner activates in _activateable)
             {
                 activates.TriggerAction();
             }
@@ -90,7 +101,7 @@ namespace Scripts.Level.Manager
 
         public void ActiveteController()
         {
-            foreach (IActivable activates in _activateable)
+            foreach (ISpawner activates in _activateable)
             {
                 activates.IsActivating = true;
             }
@@ -98,20 +109,21 @@ namespace Scripts.Level.Manager
 
         public void DeactiveController()
         {
-            foreach (IActivable activates in _activateable)
+            foreach (ISpawner activates in _activateable)
             {
                 activates.IsActivating = false;
             }
         }
-        private void OnPlay()
+
+
+        private void OnReset()
         {
-            
-        }
-        private void OnFail()
-        {
-           
+            foreach (ISpawner activates in _activateable)
+            {
+                activates.Reset();
+            }
+            DeactiveController();
         }
 
- 
     }
 }

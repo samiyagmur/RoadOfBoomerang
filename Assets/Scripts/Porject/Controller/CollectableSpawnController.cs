@@ -6,24 +6,25 @@ using Scripts.Level.Data.ValueObject;
 using Scripts.Level.Manager;
 using Signals;
 using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Type;
 using UnityEngine;
 
 namespace Scripts.Level.Controller
 {
-    public class CollectableSpawnController :IActivable, IPullObject
+    public class CollectableSpawnController :ISpawner, IPullObject, IPushObject
     {
+        public bool IsActivating { get; set; }
 
+        private List<GameObject> _spawnedObject=new();
 
         private SpawnManager _spawnManager;
-
 
         private CollectableSpawnData _collectableSpawnData;
 
         private int _counter;
 
-        public bool IsActivating { get ; set ; }
 
         public CollectableSpawnController(SpawnManager spawnManager)
         {
@@ -40,21 +41,36 @@ namespace Scripts.Level.Controller
             {
                 if (!IsActivating) break;
 
-                StartAction();
+                Spawn();
             }
         }
 
-        public void StartAction()
+        public void Spawn()
         {
-            GameObject enemy = PullFromPool(PoolObjectType.SmallGold);
+            GameObject collectable = PullFromPool(PoolObjectType.SmallGold);
 
-            enemy.transform.position = SelfExtetions.GetRandomTopPosition(_collectableSpawnData.collectableSpawnZone) + new Vector3(0,1,0);
+            _spawnedObject.Add(collectable);
+
+            collectable.transform.position = SelfExtetions.GetRandomTopPosition(_collectableSpawnData.collectableSpawnZone) + new Vector3(0,1,0);
         }
 
 
         public GameObject PullFromPool(PoolObjectType poolObjectType)
         {
             return PoolSignals.Instance.onGetObjectFromPool(poolObjectType);
+        }
+
+        public void Reset()
+        {
+            foreach (var item in _spawnedObject)
+            {
+                PushToPool(PoolObjectType.SmallGold, item);
+            }
+        }
+
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool.Invoke(poolObjectType, obj);
         }
     }
 }

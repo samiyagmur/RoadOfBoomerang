@@ -15,36 +15,43 @@ namespace Scripts.Level.Controller
         private PlayerManager playerManager;
 
         private float _health;
-        private float _maxHealt;
+        private int _deadHealt;
+        private int _maxHealt;
+        private int _damage;
 
         internal void SetData(PlayerHealtData playerHealtData)
         {
             _maxHealt = playerHealtData.MaxHealth;
             _health = _maxHealt;
+      
         }
 
-        public void OnTakeDamage(int damage)
+        internal void SetDamage(int damage)
         {
-            if (_health > 0)
+            _damage = damage;
+            _deadHealt = _maxHealt / damage;
+
+        }
+        public void OnTakeDamage()
+        {
+            if (_health < _deadHealt)
             {
 
-                _health -= damage;
+                _health -= _damage;
 
                 OnHealthUpdate(_health);
-
-
             }
             else
             {
+                Debug.Log(playerManager);
                 playerManager.PlayerDead();
             }
         }
 
         private void OnHealthUpdate(float healthValue)
         {
-            Debug.Log(healthValue);
-
             playerManager.OnHealtDecrase(healthValue);
         }
+
     }
 }

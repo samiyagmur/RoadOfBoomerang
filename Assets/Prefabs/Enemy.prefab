@@ -813,6 +813,7 @@ MonoBehaviour:
   enemyMovementController: {fileID: 925589729190246324}
   enemyAnimationController: {fileID: 457020615318009492}
   enemyAttackController: {fileID: 7838417794185016734}
+  enemyPhysicController: {fileID: 3421176391505434134}
 --- !u!114 &925589729190246324
 MonoBehaviour:
   m_ObjectHideFlags: 0

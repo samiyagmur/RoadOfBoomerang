@@ -65,16 +65,9 @@ namespace Managers
 
         internal void OnClosePanel(UIPanelType panelType) => uIPanelController.ChangePanel(panelType, false);
 
- 
-       
         private void OnLevelInitilize()
         {
-
-           // OnOpenPanel(UIPanelType.StartPanel);
-        }
-        private void OnHealthDecrase(float health)
-        {
-            levelPanelController.PrintHealth(health);
+            OnOpenPanel(UIPanelType.StartPanel);
         }
 
         internal void ChangePanelStatusOnPlay()
@@ -84,41 +77,41 @@ namespace Managers
         private void OnPlay()
         {
             OnClosePanel(UIPanelType.StartPanel);
+
+            OnOpenPanel(UIPanelType.LevelPanel);
         }
 
         public void ChangePanelStatusOnStartAsSetting(UIPanelType uIPanelType)
         {
             OnOpenPanel(uIPanelType);
+
             OnClosePanel(UIPanelType.StartPanel);
         }
 
-       
         private void OnFail()
         {
-
             failPanelController.SetDeathScore(_lastDeathScore);
+
             OnOpenPanel(UIPanelType.FailPanel);
         }
 
         internal void ChangePanelStatusOnPressTryAgain(UIPanelType uIPanelType)
         {
-             OnClosePanel(uIPanelType);
-             OnOpenPanel(UIPanelType.StartPanel);
-        }
 
-        internal void ChangePanelStatusOnTopScore(UIPanelType uIPanelType)
-        {
             OnClosePanel(uIPanelType);
+
             OnOpenPanel(UIPanelType.StartPanel);
+
+            CoreGameSignals.Instance.onLevelInitilize?.Invoke();
+
+            CoreGameSignals.Instance.onPlay?.Invoke();
         }
 
-        internal void ChangePanelStatusOnSetting(UIPanelType uIPanelType)
+        private void OnHealthDecrase(float health)
         {
-            OnClosePanel(uIPanelType);
-            OnOpenPanel(UIPanelType.StartPanel);
+            levelPanelController.PrintHealth(health);
         }
 
-       
 
         internal void OnInitLastGoldScore(int value)
         {

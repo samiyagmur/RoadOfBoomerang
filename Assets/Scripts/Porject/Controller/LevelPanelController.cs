@@ -26,8 +26,6 @@ namespace Controller
         {
 
             gold.text = value.ToString();
-
-            image.fillAmount = 100;
         }
 
         internal void PrintHealth(float health)

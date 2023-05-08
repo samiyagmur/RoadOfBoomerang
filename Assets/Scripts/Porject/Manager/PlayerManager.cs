@@ -7,6 +7,7 @@ using Scripts.Level.Data.ValueObject;
 using Signals;
 using UnityEngine;
 using System;
+using System.Threading.Tasks;
 
 namespace Scripts.Level.Manager
 {
@@ -31,21 +32,16 @@ namespace Scripts.Level.Manager
         private float _camDiraction;
 
         public string DataPath => "Data/Cd_PlayerData";
-        private void Awake()
+        public void Awake()
         {
             GetData();
 
-            SetDataToController();
+            SetData();
         }
 
-        internal void OnHealtDecrase(float healthValue)
-        {
-            UISignals.Instance.onHealthDecrase?.Invoke(healthValue);
-        }
+        public void GetData() => _playerData = Resources.Load<Cd_PlayerData>(DataPath).PlayerData;
 
-        private void GetData() => _playerData = Resources.Load<Cd_PlayerData>(DataPath).PlayerData;
-
-        private void SetDataToController()
+        public void SetData()
         {
             playerMovementController.SetData(_playerData.PlayerMovementData, _camDiraction);
 
@@ -80,6 +76,7 @@ namespace Scripts.Level.Manager
         }
 
 
+
         public void OnDisable()
         {
             DeactiveController();
@@ -107,6 +104,7 @@ namespace Scripts.Level.Manager
         {
             
         }
+
         public void TriggerController()
         {
             playerAnimationController.SetDefaultAnimation();
@@ -114,21 +112,37 @@ namespace Scripts.Level.Manager
 
         public void ActiveteController()
         {
-            playerMovementController.IsActivating = true;
+            playerMovementController.IsActive = true;
 
-            playerAnimationController.IsActivating = true;
+            playerAnimationController.IsActive = true;
+
+            playerAttackController.IsActive = true;
         }
 
         public void DeactiveController()
         {
-            playerMovementController.IsActivating = false;
+            playerMovementController.IsActive = false;
 
-            playerAnimationController.IsActivating = false;
+            playerAnimationController.IsActive = false;
+
+            playerAttackController.IsActive = false;
         }
 
-        private Transform OnGetPlayerTransform()
+        internal void OnHealtDecrase(float healthValue)
         {
-            return transform;
+            UISignals.Instance.onHealthDecrase?.Invoke(healthValue);
+        }
+
+        internal void PlayerDead()
+        {
+            DeactiveController();
+
+            playerAnimationController.PlayDadAnimation();
+        }
+
+        internal void OnDeadPlayer()
+        {
+            CoreGameSignals.Instance.onFail?.Invoke();
         }
 
         internal void HitEnemy(GameObject enemyObject)
@@ -142,22 +156,19 @@ namespace Scripts.Level.Manager
 
         internal void HitDamager(float damage)
         {
-            playerHealthController.OnTakeDamage((int)damage);
+            playerHealthController.SetDamage((int)damage);
+
+            playerHealthController.OnTakeDamage();
         }
 
         internal void HitCoin()
         {
             ScoreSignals.Instance.onScoreTaken?.Invoke();
         }
-        internal void PlayerDead()
+        private Transform OnGetPlayerTransform()
         {
-            CoreGameSignals.Instance.onFail?.Invoke();
-
-            playerAnimationController.PlayDadAnimation();
-
-            playerAnimationController.IsActivating = false;
+            return transform;
         }
 
-      
     }
 }

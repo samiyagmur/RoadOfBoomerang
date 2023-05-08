@@ -19,9 +19,9 @@ namespace Scripts.Level.Controller
 
         public void TriggerAction()
         {
-            MoveAsFireBal();
+            if (!isActivate) return;
 
-            if (isActivate) return;
+            MoveAsFireBal();
         }
 
         private void MoveAsFireBal()

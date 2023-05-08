@@ -12,7 +12,7 @@ namespace Scripts.Level.Controller
 {
     public class PlayerAnimationController : MonoBehaviour
     {
-        public bool IsActivating { get; set; }
+        public bool IsActive { get; set; }
 
         [SerializeField]
         private Animator animator;
@@ -25,30 +25,27 @@ namespace Scripts.Level.Controller
 
         private PlayerData _playerData;
 
-        private bool isDead;
-
-        private bool isAtack;
-
-        private PlayerAnimationType _playerAnimationType;
-
         internal void SetData(PlayerData playerData)
         {
             _playerData = playerData;
         }
-
-        internal void PlayDadAnimation()
+        public void OnDeadPlayer()
         {
-            ChangeAnimationType(PlayerAnimationType.Dead);
+            playerManager.OnDeadPlayer();
         }
         internal void SetDefaultAnimation()
         {
             ChangeAnimationType(PlayerAnimationType.Other);
         }
+        internal void PlayDadAnimation()
+        {
+            ChangeAnimationType(PlayerAnimationType.Dead);
+        }
+
         public void ChangeAnimationType(PlayerAnimationType playeranimationtype)
         {
             animator.Play(playeranimationtype.ToString());
         }
-
         private void FixedUpdate()
         {
             PlayAnimation();
@@ -56,17 +53,13 @@ namespace Scripts.Level.Controller
     
         internal void PlayAnimation()
         {
-            if (!IsActivating) return;
-
+            if (!IsActive) return;
 
             float _currentSpeed = rigidbody.velocity.magnitude;
 
             float clampedValue = SelfExtetions.Map(_currentSpeed, 0, _playerData.PlayerMovementData.Speed, 0, 1f);
 
             animator.SetFloat("Horizontal", clampedValue);
-          
-           
         }
-
     }
 }

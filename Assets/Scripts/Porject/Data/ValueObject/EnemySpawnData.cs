@@ -7,8 +7,6 @@ namespace Scripts.Level.Data.ValueObject
     [Serializable]
     public class EnemySpawnData
     {
-        public int spawnCount;
-
         public int spawnLimit;
 
         public float spawnRange;

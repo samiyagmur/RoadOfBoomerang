@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BoomerangData:
     damage: 100
-    speed: 10
-    rotations: 1
+    arrivalTime: 3
+    rotations: 10
     duration: 1

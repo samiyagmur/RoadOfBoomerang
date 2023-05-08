@@ -7,10 +7,12 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Script.Signals;
+using Type;
+using Signals;
 
 namespace Assets.Scripts.Level.Manager
 {
-    public class EnemyManager : MonoBehaviour,IManagable
+    public class EnemyManager : MonoBehaviour, IPushObject
     {
         [SerializeField]
         private EnemyMovementController enemyMovementController;
@@ -21,28 +23,27 @@ namespace Assets.Scripts.Level.Manager
         [SerializeField]
         private EnemyAttackController enemyAttackController;
 
+        [SerializeField]
+        private EnemyPhysicController enemyPhysicController;
+
         private EnemyData _enemyData;
 
         private Transform _playerTransform;
 
         public string DataPath => "Data/Cd_EnemyData";
 
-        private void Awake()
+        public void Awake()
         {
             GetData();
 
             SetData();
         }
 
-        public  Transform GetPlayerTransform()
-        {
-             return PlayerSignals.Instance.onGetPlayerTransform?.Invoke();
-        }
 
-        private void GetData() => _enemyData = Resources.Load<Cd_EnemyData>(DataPath).EnemyData;
+        public void GetData() => _enemyData = Resources.Load<Cd_EnemyData>(DataPath).EnemyData;
 
 
-        private void SetData()
+        public void SetData()
         {
             enemyMovementController.SetData(_enemyData.EnemyMovementData);
 
@@ -53,24 +54,12 @@ namespace Assets.Scripts.Level.Manager
 
         public void OnEnable()
         {
-            SubscribeEvents();
-
             ActiveteController();
         }
-        public void SubscribeEvents()
-        {
 
-        }
-
-        public void UnsubscribeEvents()
-        {
-           
-        }
         public void OnDisable()
         {
             DeactiveController();
-
-            UnsubscribeEvents();
         }
         private void Start()
         {
@@ -78,45 +67,62 @@ namespace Assets.Scripts.Level.Manager
         }
         public void TriggerController()
         {
-            //enemyAnimationController.TriggerAction();
+            enemyPhysicController.enabled = false;
+
+            enemyAnimationController.TriggerAction();
         }
 
         public void ActiveteController()
         {
-            enemyMovementController.IsActivating = true;
+            enemyMovementController.IsActive = true;
+            enemyAnimationController.IsActive = true;
+            enemyAttackController.IsActive = true;
         }
 
         public void DeactiveController()
         {
-            enemyMovementController.IsActivating = false;
+            enemyMovementController.IsActive = false;
+            enemyAnimationController.IsActive = false;
+            enemyAttackController.IsActive = false;
         }
 
         internal void EnterDetectArea()
         {
             DeactiveController();
 
-            enemyAnimationController.StartAttack();
-        }
-
-        internal void ExitDetectArea()
-        {
-            
-       
-
+            enemyAnimationController.PlayAttackAnimation();
         }
 
         internal void OnReadyToAttack()
         {
             enemyAttackController.TriggerToAction();
 
-            enemyMovementController.IsActivating = true;
+            ActiveteController();
         }
 
         internal void OnHitBoomerang()
         {
-            ScoreSignals.Instance.onDeathScoreTaken?.Invoke();
+            enemyPhysicController.enabled = false;
+
+            enemyAnimationController.PlayDyingAnimation();
         }
 
+        internal void OnEnemyDying()
+        {
+            ScoreSignals.Instance.onDeathScoreTaken?.Invoke();
+
+            PushToPool(PoolObjectType.Enemy, gameObject);
+
+        }
+        public Transform GetPlayerTransform()
+        {
+            return PlayerSignals.Instance.onGetPlayerTransform?.Invoke();
+        }
+
+        public void PushToPool(PoolObjectType poolObjectType, GameObject obj)
+        {
+            PoolSignals.Instance.onReleaseObjectFromPool(poolObjectType, obj);
+        }
 
     }
 }

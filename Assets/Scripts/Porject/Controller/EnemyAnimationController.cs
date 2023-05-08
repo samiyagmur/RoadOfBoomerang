@@ -23,13 +23,17 @@ namespace Scripts.Level.Controller
         [SerializeField]
         private EnemyManager enemyManager;
 
-        public bool IsActivating { get ; private set ; }
-        public bool IsDead { get; private set; }
-        public bool IsAttacking { get; private set; }
+        public bool IsActive {private get ; set ; }
 
         internal void SetData(EnemyAnimationData enemyAnimationData)
         {
             _enemyAnimationData = enemyAnimationData;
+        }
+
+        public void OnEnemyDying()
+        {
+            Debug.Log("ss");
+            enemyManager.OnEnemyDying();
         }
 
         public void OnReadyToAttack()
@@ -37,7 +41,7 @@ namespace Scripts.Level.Controller
             enemyManager.OnReadyToAttack();
         }
 
-        public void AtackStop()
+        public void PlayRunAnimation()
         {
             enemyManager.ActiveteController();
 
@@ -50,18 +54,22 @@ namespace Scripts.Level.Controller
             ChangeAnimation(EnemyAnimationType.Run);
         }
 
-        public void StartAttack()
+        public void PlayAttackAnimation()
         {
             ChangeAnimation(EnemyAnimationType.Attack);
         }
 
-        public void Dying()
+        public void PlayDyingAnimation()
         {
+            Debug.Log("ss");
+
             ChangeAnimation(EnemyAnimationType.Die);
         }
 
         private void ChangeAnimation(EnemyAnimationType enemyAnimationType)
         {
+           // if (!IsActive) return;
+
             animator.Play(enemyAnimationType.ToString());
         }
 
